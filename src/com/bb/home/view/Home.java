@@ -1,11 +1,13 @@
-package bb_final;
+package com.bb.home.view;
 
 import java.awt.*;
 import java.awt.event.*;
 
 import javax.swing.*;
 
-import com.kitri.main.SwingCalendar;
+import com.bb.util.SwingCalendar;
+
+import bb_final.Main_frame;
 
 public class Home extends JPanel {
 	JButton house1;
@@ -30,6 +32,8 @@ public class Home extends JPanel {
 			}
 		};
 
+		
+		
 		JLabel mainText1 = new JLabel();
 		JLabel mainText2 = new JLabel();
 		JLabel mainText3 = new JLabel();
@@ -40,10 +44,10 @@ public class Home extends JPanel {
 		JLabel labelS3 = new JLabel("\uCCB4\uD06C\uC544\uC6C3");
 		JLabel labelS4 = new JLabel("\uCD5C\uB300\uC778\uC6D0");
 		JTextField location = new JTextField();
-		// JComboBox dateIn = new JComboBox();
-		JTextField dateIn = new JTextField();
 
+		JTextField dateIn = new JTextField();
 		JTextField dateOut = new JTextField();
+		
 		JComboBox<String> person = new JComboBox<String>();
 		button = new JButton("Search");
 

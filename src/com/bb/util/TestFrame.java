@@ -1,4 +1,4 @@
-package com.kitri.main;
+package com.bb.util;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;

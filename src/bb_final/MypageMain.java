@@ -26,8 +26,9 @@ public class MypageMain extends JPanel {
 
    /**
     * Create the panel.
+ * @param main_frame 
     */
-   public MypageMain() {
+   public MypageMain(Main_frame main_frame) {
       setBounds(new Rectangle(0, 0, 775, 559));
       setLayout(null);
       

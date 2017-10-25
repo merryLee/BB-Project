@@ -17,7 +17,7 @@ import java.awt.event.ActionEvent;
 
 public class Mypage_registered_mng extends JPanel {
 
-   public Mypage_registered_mng() {
+   public Mypage_registered_mng(Main_frame main_frame) {
       setBounds(new Rectangle(0, 0, 775, 559));
       setLayout(null);
 

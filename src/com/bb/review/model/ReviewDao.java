@@ -17,7 +17,6 @@ public class ReviewDao {
 			conn = DBConnection.makeConnection();
 			System.out.println("연결 성공!");
 
-			
 			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 			String strDate = dateFormat.format(Calendar.getInstance().getTime());
 			strDate = "DATE '" + strDate + "'";

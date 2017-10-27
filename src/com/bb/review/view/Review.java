@@ -167,9 +167,9 @@ public class Review extends JPanel {
 		add(submit);
 				
 //		등록부
-		ReviewLogic bbl = new ReviewLogic(this);
+		ReviewLogic rl = new ReviewLogic(this);
 //		이벤트 등록
-		submit.addActionListener(bbl);
+		submit.addActionListener(rl);
 		
 	}
 

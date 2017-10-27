@@ -1,4 +1,4 @@
-package com.bb.util;
+package bb_final;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;

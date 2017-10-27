@@ -29,7 +29,6 @@ public class ReviewLogic implements ActionListener {
 		while (elements.hasMoreElements()) {
 			AbstractButton button = (AbstractButton) elements.nextElement();
 			if (button.isSelected()) {
-				System.out.println(button.getText() + " " + changeGrade(button.getText()));
 				reviewDto.setRscore1(changeGrade(button.getText()));
 			}
 		}
@@ -38,7 +37,6 @@ public class ReviewLogic implements ActionListener {
 		while (elements.hasMoreElements()) {
 			AbstractButton button = (AbstractButton) elements.nextElement();
 			if (button.isSelected()) {
-				System.out.println(button.getText() + " " + changeGrade(button.getText()));
 				reviewDto.setRscore2(changeGrade(button.getText()));
 			}
 		}
@@ -47,7 +45,6 @@ public class ReviewLogic implements ActionListener {
 		while (elements.hasMoreElements()) {
 			AbstractButton button = (AbstractButton) elements.nextElement();
 			if (button.isSelected()) {
-				System.out.println(button.getText() + " " + changeGrade(button.getText()));
 				reviewDto.setRscore3(changeGrade(button.getText()));
 			}
 		}
@@ -56,12 +53,10 @@ public class ReviewLogic implements ActionListener {
 		while (elements.hasMoreElements()) {
 			AbstractButton button = (AbstractButton) elements.nextElement();
 			if (button.isSelected()) {
-				System.out.println(button.getText() + " " + changeGrade(button.getText()));
 				reviewDto.setRscore4(changeGrade(button.getText()));
 			}
 		}
 		
-		System.out.println(review.reviewSpec.getText());
 		reviewDto.setRspec(review.reviewSpec.getText());
 
 		int cnt = reviewDao.insertReview(reviewDto);
@@ -71,9 +66,6 @@ public class ReviewLogic implements ActionListener {
 		} else {
 			System.out.println("리뷰등록실패TT");
 		}
-		
-		
-
 	}
 
 	private int changeGrade(String text) { // 텍스트로 받아온 라디오버튼값을 점수화

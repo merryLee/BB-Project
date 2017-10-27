@@ -1,4 +1,4 @@
-package com.bb.review.view;
+package bb_final;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -6,8 +6,6 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
-
-import bb_final.Main_frame;
 
 public class Review2 extends JPanel {
 

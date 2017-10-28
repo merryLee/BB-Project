@@ -1,16 +1,13 @@
 package com.bb.common;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.event.*;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
-import com.bb.common.model.SwingCalendarLogic;
-
-import javax.swing.border.LineBorder;
+import com.bb.common.controller.FrameClose;
+import com.bb.common.controller.SwingCalendarLogic;
 
 public class SwingCalendar extends JFrame {
 	private JPanel contentPane;
@@ -23,18 +20,18 @@ public class SwingCalendar extends JFrame {
 	public JTable dateTable;
 	public DefaultTableModel model;
 	
-	public JTextField extField = new JTextField();
+	public JLabel extLabel;
 
 	public SwingCalendar() {
-		
+
 		setTitle("Calendar");
-//		setDefaultCloseOperation(SwingCalendar.EXIT_ON_CLOSE);
+		// setDefaultCloseOperation(SwingCalendar.EXIT_ON_CLOSE);
 
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(10, 10, 10, 10));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
-		
+
 		dateLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
 		datePanel.setLayout(new BorderLayout());
@@ -62,17 +59,18 @@ public class SwingCalendar extends JFrame {
 
 		setBounds(100, 100, 360, 260);
 		setVisible(false);
-		
-//		등록부
+
+		// 등록부
 		SwingCalendarLogic scl = new SwingCalendarLogic(this);
 		scl.updateDate();
-				
-//		이벤트 등록
-		dateTable.addMouseListener(scl);		
+		scl.tableCellCenter(dateTable);
+		
+		// 이벤트 등록
+		dateTable.addMouseListener(scl);
 		b1.addActionListener(scl);
 		b2.addActionListener(scl);
-		addWindowListener(scl);
 		
+		addWindowListener(new FrameClose(this));
 	}
 
 }

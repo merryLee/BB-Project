@@ -1,5 +1,5 @@
 package com.bb.home.controller;
 
-public class HomeDao {
+public class SearchLogic {
 
 }

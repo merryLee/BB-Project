@@ -10,7 +10,7 @@ public class HouseDto {
 	private int hmax;
 	private String convcode;
 	private String hintro;
-	private String hhost;
+	private int hhost;	//원래 int 나중에 수정예정..ㅇㅅ유ㅠ
 	private String hphone;
 	private String hstatus;
 	private String hdate;
@@ -83,11 +83,11 @@ public class HouseDto {
 		this.hintro = hintro;
 	}
 
-	public String getHhost() {
+	public int getHhost() {
 		return hhost;
 	}
 
-	public void setHhost(String hhost) {
+	public void setHhost(int hhost) {
 		this.hhost = hhost;
 	}
 

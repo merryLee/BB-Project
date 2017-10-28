@@ -1,22 +1,24 @@
-package com.bb.common.model;
+package com.bb.common.controller;
 
 import java.awt.event.*;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import javax.swing.JTable;
+import javax.swing.SwingConstants;
+import javax.swing.table.*;
 
 import com.bb.common.SwingCalendar;
 
-public class SwingCalendarLogic implements ActionListener, MouseListener, WindowListener {
+public class SwingCalendarLogic extends MouseAdapter implements ActionListener {
 
 	SwingCalendar sc;
 	private Calendar cal = new GregorianCalendar();
 	private int month;
 	private int year;
-	
+
 	public SwingCalendarLogic(SwingCalendar sc) {
-		this.sc = sc;	
+		this.sc = sc;
 	}
 
 	@Override
@@ -37,30 +39,30 @@ public class SwingCalendarLogic implements ActionListener, MouseListener, Window
 		JTable target = (JTable) e.getSource();
 		int row = target.getSelectedRow();
 		int column = target.getSelectedColumn();
-		
+
 		if (e.getButton() == 1) {
 			if (e.getClickCount() == 2) {
-				sc.extField.setText(year + ". " + month + ". " + target.getValueAt(row, column));
+				sc.extLabel.setText(year + ". " + month + ". " + target.getValueAt(row, column));
 				sc.setVisible(false);
 			}
 		}
 	}
-	
-	
+
 	public void updateDate() {
 		cal.set(Calendar.DAY_OF_MONTH, 1);
-		
-		month = cal.get(Calendar.MONTH);
+
+		month = cal.get(Calendar.MONTH) + 1;
 		year = cal.get(Calendar.YEAR);
+
 		sc.dateLabel.setText(year + ". " + month + ". ");
-		
+
 		int startDay = cal.get(Calendar.DAY_OF_WEEK);
 		int numberOfDays = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
 		int weeks = cal.getActualMaximum(Calendar.WEEK_OF_MONTH);
-		
+
 		sc.model.setRowCount(0);
 		sc.model.setRowCount(weeks);
-		
+
 		int i = startDay - 1;
 		for (int day = 1; day <= numberOfDays; day++) {
 			sc.model.setValueAt(day, i / 7, i % 7);
@@ -68,69 +70,15 @@ public class SwingCalendarLogic implements ActionListener, MouseListener, Window
 		}
 	}
 
-	@Override
-	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void tableCellCenter(JTable t) {
 
-	@Override
-	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+		DefaultTableCellRenderer dtcr = new DefaultTableCellRenderer();
+		dtcr.setHorizontalAlignment(SwingConstants.CENTER);
+		TableColumnModel tcm = t.getColumnModel();
+		int col = tcm.getColumnCount();
+		for (int i=0;i<col;i++) {
+			tcm.getColumn(i).setCellRenderer(dtcr);
+		}
 
-	@Override
-	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
 	}
-
-	@Override
-	public void windowOpened(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void windowClosing(WindowEvent e) {
-		sc.setVisible(false);
-	}
-
-	@Override
-	public void windowClosed(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void windowIconified(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void windowDeiconified(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void windowActivated(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void windowDeactivated(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
 }

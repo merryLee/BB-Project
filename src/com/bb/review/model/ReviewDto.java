@@ -2,6 +2,7 @@ package com.bb.review.model;
 
 public class ReviewDto {
 
+	private String mid;
 	private int rno;
 	private int bno;
 	private int rscore1;
@@ -12,6 +13,12 @@ public class ReviewDto {
 	private String rdate;
 	private int rcnt;
 	
+	public String getMid() {
+		return mid;
+	}
+	public void setMid(String mid) {
+		this.mid = mid;
+	}
 	public int getRno() {
 		return rno;
 	}

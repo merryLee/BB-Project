@@ -1,20 +1,33 @@
 package com.bb.home.view;
 
-import java.awt.*;
-import java.util.List;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.GridLayout;
+import java.awt.Rectangle;
 import java.util.ArrayList;
+import java.util.List;
 
-import javax.swing.*;
-
-import com.bb.home.controller.HomeLogic;
-import com.bb.home.model.HomeDao;
-import com.bb.house.model.HouseDto;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.UIManager;
+import javax.swing.border.BevelBorder;
 
 import com.bb.common.view.Main_frame;
+import com.bb.home.controller.SearchLogic;
+import com.bb.home.model.HomeDao;
+import com.bb.house.model.HouseDto;
+import javax.swing.ScrollPaneConstants;
 
 public class Search extends JPanel {
 
 	public Main_frame main_frame;
+	public List<HouseDto> searchList;
 
 	ImageIcon mainImg;
 	JLabel mainText1 = new JLabel();
@@ -26,23 +39,31 @@ public class Search extends JPanel {
 	JLabel labelS2 = new JLabel("\uCCB4\uD06C\uC778");
 	JLabel labelS3 = new JLabel("\uCCB4\uD06C\uC544\uC6C3");
 	JLabel labelS4 = new JLabel("\uCD5C\uB300\uC778\uC6D0");
-	JButton button = new JButton("Search");
+	public JButton searchBtn = new JButton("Search");
 
 	public JLabel address = new JLabel();
 	public JLabel dateIn = new JLabel();
 	public JLabel dateOut = new JLabel();
-	JComboBox<String> person = new JComboBox<String>();
+	public JComboBox<String> person = new JComboBox<String>();
 
-	JLabel labelR = new JLabel("RECOMMENDATION");
+	JLabel labelR = new JLabel("SEARCH");
 	public List<HouseDto> hList;
 	public List<JButton> hBtnList;
 
-	public Search(Main_frame main_frame) {
+	public HomeDao homeDao = new HomeDao();
+	
+	public Search(Main_frame main_frame, List<HouseDto> searchList) {
+		
 		this.main_frame = main_frame;
+		this.searchList = searchList;
+		System.out.println("search생성성공!");
 		setBackground(Color.WHITE);
 		setBounds(new Rectangle(0, 0, 775, 559));
 		setLayout(null);
 
+		JPanel p = new JPanel();
+		p.setLayout(null);
+		
 		mainImg = new ImageIcon(".\\img\\blackBB.jpg");
 		JPanel panel = new JPanel() {
 			public void paintComponent(Graphics g) {
@@ -64,10 +85,10 @@ public class Search extends JPanel {
 		mainText3.setForeground(new Color(50, 55, 60));
 		mainText3.setFont(new Font("Dialog", Font.PLAIN, 26));
 		mainText3.setBounds(234, 192, 398, 38);
-		add(panel); // 로고이미지
-		add(mainText1);
-		add(mainText2);
-		add(mainText3);
+		p.add(panel); // 로고이미지
+		p.add(mainText1);
+		p.add(mainText2);
+		p.add(mainText3);
 
 		labelS.setFont(new Font("Dialog", Font.PLAIN, 20));
 		labelS.setBounds(22, 260, 200, 28);
@@ -79,11 +100,11 @@ public class Search extends JPanel {
 		labelS3.setBounds(340, 292, 97, 15);
 		labelS4.setFont(new Font("굴림", Font.PLAIN, 13));
 		labelS4.setBounds(499, 292, 57, 15);
-		add(labelS);
-		add(labelS1);
-		add(labelS2);
-		add(labelS3);
-		add(labelS4);
+		p.add(labelS);
+		p.add(labelS1);
+		p.add(labelS2);
+		p.add(labelS3);
+		p.add(labelS4);
 
 		address.setBounds(22, 308, 140, 24);
 		address.setBorder(UIManager.getBorder("TextField.border"));
@@ -99,46 +120,63 @@ public class Search extends JPanel {
 		person.addItem("성인 8명");
 		person.addItem("성인 10명");
 		person.addItem("10명 이상");
-		button.setBackground(new Color(38, 84, 149));
-		button.setForeground(Color.WHITE);
-		button.setBounds(657, 308, 76, 24);
+		searchBtn.setBackground(new Color(38, 84, 149));
+		searchBtn.setForeground(Color.WHITE);
+		searchBtn.setBounds(657, 308, 76, 24);
 
-		add(address);
-		add(dateIn);
-		add(dateOut);
-		add(person);
-		add(button);
+		p.add(address);
+		p.add(dateIn);
+		p.add(dateOut);
+		p.add(person);
+		p.add(searchBtn);
 
 		labelR.setFont(new Font("Dialog", Font.PLAIN, 20)); // RECOMMENDED
 		labelR.setBounds(22, 351, 200, 28);
-		add(labelR);
+		p.add(labelR);
 
-		JPanel homePanel = new JPanel(new GridLayout(1, 4, 20, 0));
-		homePanel.setBounds(22, 380, 711, 154);
-		HomeDao homeDao = new HomeDao();
-		hList = homeDao.selectTop(); // top4 리스트받아옴
-		System.out.println(hList.get(0).getHpath1());
+		
+		
+		JScrollPane pane = new JScrollPane();
+		pane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		pane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		pane.setBounds(0, 0, 775, 559);
+		add(pane, "Center");
+		
 		hBtnList = new ArrayList<JButton>();
-		int size = hList.size();
-
 		JButton hBtn;
-		for (int i = 0; i < size; i++) { // 이미지버튼 생성 및 리스트에 삽입.
-			hBtn = new JButton("hBtn"+i, new ImageIcon(hList.get(i).getHpath1()));
-			System.out.println(hList.get(i).getHpath1());
-			hBtnList.add(hBtn);
-			homePanel.add(hBtn);
-		}
-		add(homePanel);
+		int size = searchList.size();
+		System.out.println("사이즈값 불러오기성공");
 
-//		HomeLogic hl = new HomeLogic(this);
-//
-//		address.addMouseListener(hl);
-//		dateIn.addMouseListener(hl);
-//		dateOut.addMouseListener(hl);
-//
-//		for (int i = 0; i < size; i++) { // 리스너추가
-//			hBtnList.get(i).addActionListener(hl);
-//		}
+		JPanel homePanel =  new JPanel();
+		JPanel homeContent = null;
+		
+		for (int i = 0; i < size; i++) {
+			if (i % 4 == 0) {
+				p.setPreferredSize(new Dimension(775, 559 + (154 * (i/4+1))));
+				homePanel.setBounds(22, 380, 711, 154 * (i/4+1)); // 여기의 길이가 늘어나야함.
+				homePanel.setLayout(new GridLayout(1 + (i/4), 1, 0, 20));
+				homeContent = new JPanel(new GridLayout(1, 4, 20, 0));
+				homeContent.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(192, 192, 192), new Color(192, 192, 192), new Color(192, 192, 192), new Color(192, 192, 192)));
+			}
+			hBtn = new JButton("hBtn" + i, new ImageIcon(searchList.get(i).getHpath1()));
+			System.out.println(searchList.get(i).getHpath1());
+			hBtnList.add(hBtn);
+			homeContent.add(hBtn);
+			if (i % 4 == 3 || i == size-1)
+				homePanel.add(homeContent);
+		}
+		
+	
+		p.add(homePanel);
+		pane.setViewportView(p);
+	
+		SearchLogic sl = new SearchLogic(this);
+
+		address.addMouseListener(sl);
+		dateIn.addMouseListener(sl);
+		dateOut.addMouseListener(sl);
+
+		searchBtn.addActionListener(sl);
 
 	}
 }

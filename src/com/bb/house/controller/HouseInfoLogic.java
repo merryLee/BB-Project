@@ -21,13 +21,13 @@ import javax.swing.border.BevelBorder;
 import com.bb.house.model.ConvDto;
 import com.bb.house.model.HouseDto;
 import com.bb.house.model.HouseInfoDao;
+import com.bb.review.model.ReviewDto;
 import com.bb.home.view.Home;
 import com.bb.home.view.SwingCalendar;
 import com.bb.house.view.HouseInfo;
-import com.bb.review.model.ReviewDto;
 import com.bb.common.view.Main_frame;
 
-public class HouseInfoLogic extends MouseAdapter {
+public class HouseInfoLogic extends MouseAdapter implements ActionListener {
 
 //	Home home;
 //	public HouseInfoLogic(Home home) {
@@ -36,11 +36,28 @@ public class HouseInfoLogic extends MouseAdapter {
 	SwingCalendar sc = new SwingCalendar();
 
 	HouseInfo hi;
-	
 	public HouseInfoLogic(HouseInfo hi) {
 		this.hi = hi;
 	}
 	
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		
+		if(e.getSource() == hi.info_btn_recomm){
+			System.out.println(hi.re.getRno());
+				int cnt = hi.hid.reviewRcommed(hi.re.getRno());
+				
+				if(cnt != 0)
+					System.out.println("추천 업데이트 성공");
+				else
+					System.out.println("추천 업데이트 실패");
+		}
+		
+	}
+
+
+
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		Object ob = e.getSource();
@@ -50,9 +67,9 @@ public class HouseInfoLogic extends MouseAdapter {
 			sc.extLabel = hi.bin;
 			sc.setTitle("체크인");
 		}
-		if (ob == hi.bout) {
+		if (ob == hi.binout) {
 			sc.setVisible(true);
-			sc.extLabel = hi.bout;
+			sc.extLabel = hi.binout;
 			sc.setTitle("체크아웃");
 		}
 	

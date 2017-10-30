@@ -1,7 +1,6 @@
 package com.bb.home.view;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -24,7 +23,6 @@ public class SwingCalendar extends JFrame {
 	public JLabel extLabel;
 
 	public SwingCalendar() {
-		
 
 		setTitle("Calendar");
 		// setDefaultCloseOperation(SwingCalendar.EXIT_ON_CLOSE);
@@ -32,7 +30,6 @@ public class SwingCalendar extends JFrame {
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(10, 10, 10, 10));
 		contentPane.setLayout(new BorderLayout(0, 0));
-		contentPane.setBackground(Color.WHITE);
 		setContentPane(contentPane);
 
 		dateLabel.setHorizontalAlignment(SwingConstants.CENTER);

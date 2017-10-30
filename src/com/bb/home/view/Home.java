@@ -36,6 +36,8 @@ public class Home extends JPanel {
 	JLabel labelR = new JLabel("RECOMMENDATION");
 	public List<HouseDto> hList;
 	public List<JButton> hBtnList;
+	
+	public HomeDao homeDao = new HomeDao();
 
 	public Home(Main_frame main_frame) {
 		this.main_frame = main_frame;
@@ -115,7 +117,7 @@ public class Home extends JPanel {
 
 		JPanel homePanel = new JPanel(new GridLayout(1, 4, 20, 0));
 		homePanel.setBounds(22, 380, 711, 154);
-		HomeDao homeDao = new HomeDao();
+		
 		hList = homeDao.selectTop(); // top4 리스트받아옴
 		System.out.println(hList.get(0).getHpath1());
 		hBtnList = new ArrayList<JButton>();

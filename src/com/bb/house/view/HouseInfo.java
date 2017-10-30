@@ -3,6 +3,7 @@ package com.bb.house.view;
 import javax.swing.JPanel;
 import java.awt.Rectangle;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
@@ -27,7 +28,6 @@ import com.bb.house.controller.HouseInfoLogic;
 import com.bb.house.model.ConvDto;
 import com.bb.house.model.HouseDto;
 import com.bb.house.model.HouseInfoDao;
-import com.bb.reservation.view.Reservation;
 import com.bb.review.model.ReviewDto;
 
 import javax.swing.JComboBox;
@@ -36,24 +36,15 @@ import javax.swing.SwingConstants;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JScrollBar;
-import javax.swing.JTextArea;
-import javax.swing.JTable;
 import java.awt.BorderLayout;
 import javax.swing.JList;
-import javax.swing.JTextPane;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.awt.event.ItemListener;
-import java.awt.event.ItemEvent;
+import java.awt.event.*;
 
 public class HouseInfo extends JPanel {
+	public JLabel bin;
+	public JLabel binout;
 	public JButton info_btn_resev;
-	public Main_frame main;
 	public JLabel info_tiltle_L;
 	public JLabel info_addr_L;
 	public JLabel info_photo;
@@ -62,30 +53,25 @@ public class HouseInfo extends JPanel {
 	public JLabel review_num;
 	public JLabel acc_price;
 	public JLabel conv_panel;
-	Reservation rs;
-	public JLabel bin;
-	public JLabel bout;
-	int bperson;
-	
+	public HouseInfoDao hid;
+	public ReviewDto re;
 
 	/**
 	 * Create the panel.
 	 * 
 	 * @param houseDto
-	 * @param main_frame
 	 */
-	public HouseInfo(HouseDto houseDto, Main_frame main_frame) {
+	public HouseInfo(HouseDto houseDto) {
 		HouseInfoLogic hil = new HouseInfoLogic(this);
-		HouseInfoDao hid = new HouseInfoDao();
+		hid = new HouseInfoDao();
 
-//		setBackground(new Color(255, 255, 255));
-		setBackground(Color.WHITE);
+		setBackground(new Color(255, 255, 255));
 		setBounds(new Rectangle(0, 0, 775, 700));
 		setLayout(null);
 
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		scrollPane.setBounds(0, 0, 775, 612);
+		scrollPane.setBounds(0, 0, 775, 700);
 		add(scrollPane);
 
 		JPanel panel = new JPanel();
@@ -113,40 +99,33 @@ public class HouseInfo extends JPanel {
 		label_4.setBounds(86, 429, 57, 15);
 		panel.add(label_4);
 
+		bin = new JLabel();
+		bin.setBounds(85, 454, 143, 29);
+		bin.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(192, 192, 192), new Color(192, 192, 192),
+				new Color(192, 192, 192), new Color(192, 192, 192)));
+		bin.setBackground(Color.WHITE);
+		panel.add(bin);
+
 		JLabel label_5 = new JLabel("\uCCB4\uD06C\uC544\uC6C3");
 		label_5.setBounds(244, 429, 57, 15);
 		panel.add(label_5);
+
+		binout = new JLabel();
+		binout.setBounds(246, 454, 143, 29);
+		binout.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(192, 192, 192), new Color(192, 192, 192),
+				new Color(192, 192, 192), new Color(192, 192, 192)));
+		panel.add(binout);
 
 		JLabel label_6 = new JLabel("\uC778\uC6D0");
 		label_6.setBounds(419, 429, 57, 15);
 		panel.add(label_6);
 
 		JComboBox cnbbperson = new JComboBox();
-		int blen = houseDto.getHmax();
-		for(int i = 0; i < blen; i++) {
-			cnbbperson.addItem(i+1);
-		}
-		cnbbperson.addItemListener(new ItemListener() {
-			public void itemStateChanged(ItemEvent e) {
-				
-				bperson = (int) e.getItem();
-			}
-		});
 		cnbbperson.setBounds(420, 454, 143, 29);
 		cnbbperson.setBackground(Color.WHITE);
 		panel.add(cnbbperson);
 
 		info_btn_resev = new JButton("\uC608\uC57D");
-		info_btn_resev.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				rs = new Reservation(houseDto, bin.getText(), bout.getText(), bperson, main_frame);
-				if (main_frame.isSession()) {
-					main_frame.intentp.add("reservation", rs);
-					main_frame.changePanel("reservation");
-				} else
-					main_frame.changePanel("login");
-			}
-		});
 		info_btn_resev.setBounds(602, 452, 111, 31);
 		info_btn_resev.setForeground(Color.WHITE);
 		info_btn_resev.setBackground(new Color(35, 86, 149));
@@ -204,7 +183,6 @@ public class HouseInfo extends JPanel {
 		panel.add(house_detail_L);
 
 		String con = "";
-		
 		if (houseDto.getConvcode().substring(0, 1).equals("1")) {
 			con = "wifi";
 		}
@@ -245,12 +223,11 @@ public class HouseInfo extends JPanel {
 		conv_panel.setBounds(86, 528, 625, 82);
 		panel.add(conv_panel);
 
-		///////////////////////////////////////////////////// score
-		///////////////////////////////////////////////////// /////////////////////////////
+		/////////////////////////////////////////////// review/////////////////////////////////////////
 		List<ReviewDto> list = hid.reviewList(houseDto.getHno());// create score , reivew
 		int len = list.size();
 		int total_num = 0, clean_num = 0, loc_num = 0, comm_num = 0;
-		/////////////////////////////////////////////// review/////////////////////////////////////////
+
 		JScrollPane scrollPane_1 = new JScrollPane();
 		scrollPane_1.setBounds(85, 820, 626, 111);
 		panel.add(scrollPane_1);
@@ -260,13 +237,14 @@ public class HouseInfo extends JPanel {
 
 		for (int i = 0; i < len; i++) {
 
-			ReviewDto re = list.get(i);
+			re = list.get(i);
+
 			total_num += re.getRscore1(); // i have to calculate total score
 			clean_num += re.getRscore2();
 			loc_num += re.getRscore3();
 			comm_num += re.getRscore4();
 
-			review_panel_mng.setPreferredSize(new Dimension(565, 111 * (i + 1)));
+			review_panel_mng.setPreferredSize(new Dimension(565, 111 * (i + 1))); // 565
 			review_panel_mng.setLayout(new GridLayout((i + 1), 1));
 
 			JPanel review_panel = new JPanel();
@@ -296,6 +274,7 @@ public class HouseInfo extends JPanel {
 			info_btn_recomm.setFont(new Font("±¼¸²", Font.BOLD, 15));
 			info_btn_recomm.setBackground(Color.WHITE);
 
+			info_btn_recomm.addActionListener(hil);
 		}
 
 		String total = (total_num / len) + "";
@@ -339,24 +318,13 @@ public class HouseInfo extends JPanel {
 			hotL.setFont(new Font("±¼¸²", Font.BOLD, 12));
 			hotP.add(hotL);
 		}
-		///////////////////////////////////////////////////////////// review num
 		review_num = new JLabel(len + "°³");
 		review_num.setBounds(135, 685, 75, 23);
 		review_num.setFont(new Font("±¼¸²", Font.BOLD, 20));
 		panel.add(review_num);
-		
-		bin = new JLabel("");
-		bin.setBounds(85, 462, 111, 21);
-		panel.add(bin);
-		
-		bout = new JLabel("");
-		bout.setBounds(244, 462, 111, 21);
-		panel.add(bout);
 
-		
 		bin.addMouseListener(hil);
-		bout.addMouseListener(hil);
-		// info_btn_resev.addActionListener(hil);
-
+		binout.addMouseListener(hil);
+		info_btn_resev.addActionListener(hil);
 	}
 }

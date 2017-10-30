@@ -1,7 +1,6 @@
 package com.bb.home.view;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 
@@ -43,7 +42,6 @@ public class Address extends JFrame {
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(20, 20, 20, 20));
 		setContentPane(contentPane);
-		contentPane.setBackground(Color.WHITE);
 		contentPane.setLayout(new BorderLayout(0, 10));
 
 		Font f = new Font("±¼¸²", Font.PLAIN, 14);

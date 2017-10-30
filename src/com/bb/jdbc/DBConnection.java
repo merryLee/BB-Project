@@ -1,19 +1,22 @@
 package com.bb.jdbc;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
 public class DBConnection {
-
-	static {
+	
+	static { // 클래스가 읽혀질때 
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
-			System.out.println("드라이버 로딩 성공!");
 		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 	
 	public static Connection makeConnection() throws SQLException {
-		return DriverManager.getConnection("jdbc:oracle:thin:@192.168.12.40:1521:xe", "BBA", "BBA");
+			return DriverManager.getConnection("jdbc:oracle:thin:@Jungsh:1521:xe","BBA","BBA");
 	}
+
 }

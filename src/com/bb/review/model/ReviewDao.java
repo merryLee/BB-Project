@@ -34,7 +34,7 @@ public class ReviewDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			DBClose.close(conn, stmt);
+			DBClose.close(stmt, conn);
 		}
 		return cnt;
 	}

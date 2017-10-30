@@ -5,8 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
+
+import com.bb.common.view.Main_frame;
+import com.bb.mypage.model.MypageMainDto;
 import com.bb.review.controller.ReviewLogic;
-import bb_final.Main_frame;
 
 public class Review extends JPanel {
 
@@ -41,14 +43,13 @@ public class Review extends JPanel {
 	private JRadioButton rb4E = new JRadioButton("\uB9E4\uC6B0\uB9CC\uC871");
 	
 	public JTextArea reviewSpec = new JTextArea();
-	
-	private JButton submit;
 	public Main_frame main_frame;
+	private JButton submit;
 	
-	public Review(Main_frame main_frame) {
-		
+	public Review(Main_frame main_frame, MypageMainDto mypagemaindto ) {
 		this.main_frame = main_frame;
 		setBounds(new Rectangle(0, 0, 775, 559));
+		setBackground(Color.WHITE);
 		setLayout(null);
 
 		JLabel title = new JLabel("평점 및 후기 작성");

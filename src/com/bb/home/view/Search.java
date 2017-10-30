@@ -12,7 +12,7 @@ import com.bb.house.model.HouseDto;
 
 import com.bb.common.view.Main_frame;
 
-public class Home extends JPanel {
+public class Search extends JPanel {
 
 	public Main_frame main_frame;
 
@@ -26,18 +26,18 @@ public class Home extends JPanel {
 	JLabel labelS2 = new JLabel("\uCCB4\uD06C\uC778");
 	JLabel labelS3 = new JLabel("\uCCB4\uD06C\uC544\uC6C3");
 	JLabel labelS4 = new JLabel("\uCD5C\uB300\uC778\uC6D0");
-	public JButton searchBtn = new JButton("Search");
+	JButton button = new JButton("Search");
 
 	public JLabel address = new JLabel();
 	public JLabel dateIn = new JLabel();
 	public JLabel dateOut = new JLabel();
-	public JComboBox<String> person = new JComboBox<String>();
+	JComboBox<String> person = new JComboBox<String>();
 
 	JLabel labelR = new JLabel("RECOMMENDATION");
 	public List<HouseDto> hList;
 	public List<JButton> hBtnList;
 
-	public Home(Main_frame main_frame) {
+	public Search(Main_frame main_frame) {
 		this.main_frame = main_frame;
 		setBackground(Color.WHITE);
 		setBounds(new Rectangle(0, 0, 775, 559));
@@ -99,15 +99,15 @@ public class Home extends JPanel {
 		person.addItem("성인 8명");
 		person.addItem("성인 10명");
 		person.addItem("10명 이상");
-		searchBtn.setBackground(new Color(38, 84, 149));
-		searchBtn.setForeground(Color.WHITE);
-		searchBtn.setBounds(657, 308, 76, 24);
+		button.setBackground(new Color(38, 84, 149));
+		button.setForeground(Color.WHITE);
+		button.setBounds(657, 308, 76, 24);
 
 		add(address);
 		add(dateIn);
 		add(dateOut);
 		add(person);
-		add(searchBtn);
+		add(button);
 
 		labelR.setFont(new Font("Dialog", Font.PLAIN, 20)); // RECOMMENDED
 		labelR.setBounds(22, 351, 200, 28);
@@ -130,15 +130,15 @@ public class Home extends JPanel {
 		}
 		add(homePanel);
 
-		HomeLogic hl = new HomeLogic(this);
+//		HomeLogic hl = new HomeLogic(this);
+//
+//		address.addMouseListener(hl);
+//		dateIn.addMouseListener(hl);
+//		dateOut.addMouseListener(hl);
+//
+//		for (int i = 0; i < size; i++) { // 리스너추가
+//			hBtnList.get(i).addActionListener(hl);
+//		}
 
-		address.addMouseListener(hl);
-		dateIn.addMouseListener(hl);
-		dateOut.addMouseListener(hl);
-	
-		for (int i = 0; i < size; i++) { // 리스너추가
-			hBtnList.get(i).addActionListener(hl);
-		}
-		searchBtn.addActionListener(hl);
 	}
 }

@@ -58,7 +58,7 @@ public class HomeDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			DBClose.close(conn, stmt, rs);
+			DBClose.close(stmt, conn, rs);
 			System.out.println("Äõ¸®¼º°ø");
 		}
 		return topList;

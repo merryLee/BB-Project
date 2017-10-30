@@ -1,30 +1,38 @@
 package com.bb.jdbc;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 public class DBClose {
-
-	public static void close(Connection conn, Statement stmt) {
-		try {
-			if (conn != null)
-				conn.close();
-			if (stmt != null)
-				stmt.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
+	
+	public static void close(Statement stmt, Connection conn) {
+	try {
+		if(stmt != null) {
+			stmt.close();
+		}
+		if(conn != null) {
+			conn.close();	
+		}				
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
 		}
 	}
-
-	public static void close(Connection conn, Statement stmt, ResultSet rs) {
+	
+	public static void close(Statement stmt, Connection conn, ResultSet rs) {
 		try {
-			if (rs != null)
-				rs.close();
-			if (conn != null)
-				conn.close();
-			if (stmt != null)
+			if(stmt != null) {
 				stmt.close();
+			}
+			if(conn != null) {
+				conn.close();	
+			}				
 		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
+			}
 		}
-	}
+
 }

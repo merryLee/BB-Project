@@ -70,15 +70,29 @@ public class HomeDao {
 		Connection conn = null;
 		Statement stmt = null;
 		ResultSet rs = null;
+		
+		in = changeDate(in);
+		out = changeDate(out);
 		int max = changePeople(people);		//구현해야함 address빼고 전부다.
 
 		try {
 			conn = DBConnection.makeConnection();
 			System.out.println("연결성공!");
-			String sql = "";
-			sql += "SELECT h.*, i.thumb1, i.thumb2, i.thumb3 \n";
-			sql += "FROM house_mng h, house_img i \n";
-			sql += "WHERE h.hno = i.hno AND hloc LIKE '%" + address + "%'";			
+			String sql = "";			
+			sql += "SELECT house.*, i.thumb1, i.thumb2, i.thumb3 \n";
+			sql += "FROM house_img i, \n";
+			sql	+= "	(SELECT h.* \n";
+			sql += "	FROM HOUSE_MNG h, \n";
+			sql += "		(SELECT hno FROM HOUSE_MNG \n";
+			sql += "		MINUS \n";
+			sql += "		SELECT DISTINCT hno \n";
+			sql += "		FROM BOOK_MNG \n";
+			sql += "		WHERE to_char(bin) BETWEEN '" + in + "' AND '" + out + "' \n";
+			sql += "		AND to_char(bout) BETWEEN '" + in + "' AND '" + out + "') con \n";
+			sql += "	WHERE h.hno = con.hno AND hloc LIKE '%" + address + "%' \n";
+			sql += "						AND hmax >= " + max + ") house \n";
+			sql += "WHERE house.hno = i.hno";
+			
 			stmt = conn.createStatement();
 			rs = stmt.executeQuery(sql);
 			while (rs.next()) {
@@ -111,10 +125,28 @@ public class HomeDao {
 		return exportList;
 	}
 
+	private String changeDate(String date) {
+		StringTokenizer st = new StringTokenizer(date, ". ");
+		return st.nextToken().substring(2)+"/"+st.nextToken()+"/"+st.nextToken();
+	}
+
 	private int changePeople(String people) {
 		int m = 0;
 		
-		
+		if("성인 1명".equals(people))
+				m = 1;
+		else if("성인 2명".equals(people))
+				m = 2;
+		else if("성인 4명".equals(people))
+				m = 4;
+		else if("성인 6명".equals(people))
+				m = 6;
+		else if("성인 8명".equals(people))
+				m = 8;
+		else if("성인 10명".equals(people))
+				m = 10;
+		else if("10명 이상".equals(people))
+				m = 99;
 		
 		return m;
 	}

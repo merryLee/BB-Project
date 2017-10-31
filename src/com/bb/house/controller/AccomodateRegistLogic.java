@@ -6,19 +6,25 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.File;
 import javax.swing.*;
 
 import com.bb.house.model.AccomodateRegistDao;
 import com.bb.house.model.HouseDto;
 import com.bb.house.view.AccomodateRegist;
+import com.bb.mypage.view.MypageMain;
 import com.bb.common.view.*;
+import com.bb.home.view.Address;
 
-public class AccomodateRegistLogic implements ActionListener, KeyListener {
+public class AccomodateRegistLogic extends MouseAdapter implements ActionListener, KeyListener, MouseListener {
 
-	AccomodateRegist ar;
+	public AccomodateRegist ar;
 	String conv;
 	 AccomodateRegistDao ard = new AccomodateRegistDao();
+	 Address address = new Address();
 	 
 	public AccomodateRegistLogic(AccomodateRegist ar) {
 		this.ar = ar;
@@ -57,23 +63,24 @@ public class AccomodateRegistLogic implements ActionListener, KeyListener {
 			checkBox(ar.con10_elevator);
 			checkBox(ar.con11_freeparking);
 			checkBox(ar.con12_front24);
-			//double numcon = Double.parseDouble(conv.toString());
 			housedto.setConvcode(conv);
 			housedto.setHhost(ar.main.getMno());
-			housedto.setHstatus("0");
+			housedto.setHstatus("1");
+
 			////////////////////////////////////////////////////////////////////µî·Ï
 			 int cnt = ard.register(housedto);
-			// int cntimg = ard.imgRegister(housedto);
 			 System.out.println("cnt : " + cnt);
-			// System.out.println("cntimg : " + cntimg);
 			 
 			 if(cnt != 0) {
 				 System.out.println("insert sucess");
-				 
-				 ar.main.changePanel("mypagemain");
+				 ar.main.mypagemain.remove(ar.main.mypagemain);
+				 MypageMain myPageMain = new MypageMain(ar.main);
+				 ar.main.mypagemain.main_frame.intentp.add("mypagemain",myPageMain);
+				 ar.main.mypagemain.main_frame.changePanel("mypagemain");
 			 }
 			 else  System.out.println("insert fail");
-			
+			 
+			 
 
 		} else if (ob == ar.regi_file_btn1) {
 			housedto.setHpath1(RegiFileBtn(ar.regi_photo_path1));
@@ -84,7 +91,6 @@ public class AccomodateRegistLogic implements ActionListener, KeyListener {
 			housedto.setHpath2(RegiFileBtn(ar.regi_photo_path2));
 			System.out.println(housedto.getHpath2());
 		} else if (ob == ar.regi_file_btn3) {
-			//RegiFileBtn(ar.regi_photo_path3);
 			housedto.setHpath3(RegiFileBtn(ar.regi_photo_path3));
 			System.out.println(housedto.getHpath3());
 		}
@@ -131,6 +137,17 @@ public class AccomodateRegistLogic implements ActionListener, KeyListener {
 	}
 	@Override
 	public void keyReleased(KeyEvent e) {
+	}
+	
+	
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		Object ob = e.getSource();
+		
+		if (ob == ar.regi_loc) {
+			address.setVisible(true);
+			address.extLabel = ar.regi_loc;
+		}
 	}
 
 }

@@ -28,6 +28,7 @@ import com.bb.house.controller.HouseInfoLogic;
 import com.bb.house.model.ConvDto;
 import com.bb.house.model.HouseDto;
 import com.bb.house.model.HouseInfoDao;
+import com.bb.reservation.view.Reservation;
 import com.bb.review.model.ReviewDto;
 
 import javax.swing.JComboBox;
@@ -55,13 +56,15 @@ public class HouseInfo extends JPanel {
 	public JLabel conv_panel;
 	public HouseInfoDao hid;
 	public ReviewDto re;
+	Reservation rs;
+	int bperson;
 
 	/**
 	 * Create the panel.
 	 * 
 	 * @param houseDto
 	 */
-	public HouseInfo(HouseDto houseDto) {
+	public HouseInfo(HouseDto houseDto, Main_frame main_frame) {
 		HouseInfoLogic hil = new HouseInfoLogic(this);
 		hid = new HouseInfoDao();
 
@@ -121,11 +124,30 @@ public class HouseInfo extends JPanel {
 		panel.add(label_6);
 
 		JComboBox cnbbperson = new JComboBox();
+		int blen = houseDto.getHmax();
+		for (int i = 0; i < blen; i++) {
+			cnbbperson.addItem(i + 1);
+		}
+		cnbbperson.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+
+				bperson = (int) e.getItem();
+			}
+		});
 		cnbbperson.setBounds(420, 454, 143, 29);
 		cnbbperson.setBackground(Color.WHITE);
 		panel.add(cnbbperson);
-
 		info_btn_resev = new JButton("\uC608\uC57D");
+		info_btn_resev.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				rs = new Reservation(houseDto, bin.getText(), binout.getText(), bperson, main_frame);
+				if (main_frame.isSession()) {
+					main_frame.intentp.add("reservation", rs);
+					main_frame.changePanel("reservation");
+				} else
+					main_frame.changePanel("login");
+			}
+		});
 		info_btn_resev.setBounds(602, 452, 111, 31);
 		info_btn_resev.setForeground(Color.WHITE);
 		info_btn_resev.setBackground(new Color(35, 86, 149));
@@ -226,102 +248,129 @@ public class HouseInfo extends JPanel {
 		/////////////////////////////////////////////// review/////////////////////////////////////////
 		List<ReviewDto> list = hid.reviewList(houseDto.getHno());// create score , reivew
 		int len = list.size();
-		int total_num = 0, clean_num = 0, loc_num = 0, comm_num = 0;
+		if (len != 0) {
+			int total_num = 0, clean_num = 0, loc_num = 0, comm_num = 0;
 
-		JScrollPane scrollPane_1 = new JScrollPane();
-		scrollPane_1.setBounds(85, 820, 626, 111);
-		panel.add(scrollPane_1);
+			JScrollPane scrollPane_1 = new JScrollPane();
+			scrollPane_1.setBounds(85, 820, 626, 111);
+			panel.add(scrollPane_1);
 
-		JPanel review_panel_mng = new JPanel();
-		scrollPane_1.setViewportView(review_panel_mng);
+			JPanel review_panel_mng = new JPanel();
+			scrollPane_1.setViewportView(review_panel_mng);
 
-		for (int i = 0; i < len; i++) {
+			for (int i = 0; i < len; i++) {
 
-			re = list.get(i);
+				re = list.get(i);
 
-			total_num += re.getRscore1(); // i have to calculate total score
-			clean_num += re.getRscore2();
-			loc_num += re.getRscore3();
-			comm_num += re.getRscore4();
+				total_num += re.getRscore1(); // i have to calculate total score
+				clean_num += re.getRscore2();
+				loc_num += re.getRscore3();
+				comm_num += re.getRscore4();
 
-			review_panel_mng.setPreferredSize(new Dimension(565, 111 * (i + 1))); // 565
-			review_panel_mng.setLayout(new GridLayout((i + 1), 1));
+				review_panel_mng.setPreferredSize(new Dimension(565, 111 * (i + 1))); // 565
+				review_panel_mng.setLayout(new GridLayout((i + 1), 1));
+
+				JPanel review_panel = new JPanel();
+				review_panel.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(192, 192, 192),
+						new Color(192, 192, 192), new Color(192, 192, 192), new Color(192, 192, 192)));
+				review_panel.setLayout(null);
+				review_panel_mng.add(review_panel);
+
+				JLabel review_name = new JLabel(re.getMid());
+				review_name.setBounds(0, 10, 110, 20);
+				review_panel.add(review_name);
+
+				JLabel review_date = new JLabel(re.getRdate());
+				review_date.setBounds(0, 25, 119, 15);
+				review_panel.add(review_date);
+
+				JLabel review = new JLabel(re.getRspec());
+				review.setBounds(0, 31, 499, 78);
+				review_panel.add(review);
+
+				info_btn_recomm = new JButton("\uCD94\uCC9C");
+				info_btn_recomm.setBounds(540, 0, 67, 112);
+				review_panel.add(info_btn_recomm);
+				info_btn_recomm.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(192, 192, 192),
+						new Color(192, 192, 192), new Color(192, 192, 192), new Color(192, 192, 192)));
+				info_btn_recomm.setForeground(Color.BLACK);
+				info_btn_recomm.setFont(new Font("±¼¸²", Font.BOLD, 15));
+				info_btn_recomm.setBackground(Color.WHITE);
+
+				info_btn_recomm.addActionListener(hil);
+			}
+
+			String total = (total_num / len) + "";
+			String clean = (clean_num / len) + "";
+			String loc = (loc_num / len) + "";
+			String comm = (comm_num / len) + "";
+
+			JLabel total_score = new JLabel(total);
+			total_score.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(192, 192, 192),
+					new Color(192, 192, 192), new Color(192, 192, 192), new Color(192, 192, 192)));
+			total_score.setBounds(134, 732, 231, 24);
+			panel.add(total_score);
+
+			JLabel clean_score = new JLabel(clean);
+			clean_score.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(192, 192, 192),
+					new Color(192, 192, 192), new Color(192, 192, 192), new Color(192, 192, 192)));
+			clean_score.setBounds(134, 769, 231, 24);
+			panel.add(clean_score);
+
+			JLabel loc_score = new JLabel(loc);
+			loc_score.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(192, 192, 192), new Color(192, 192, 192),
+					new Color(192, 192, 192), new Color(192, 192, 192)));
+			loc_score.setBounds(461, 731, 250, 24);
+			panel.add(loc_score);
+
+			JLabel comm_score = new JLabel(comm);
+			comm_score.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(192, 192, 192),
+					new Color(192, 192, 192), new Color(192, 192, 192), new Color(192, 192, 192)));
+			comm_score.setBounds(461, 767, 250, 24);
+			panel.add(comm_score);
+			/////////////////////////////////////////////////////////////////////////////////////////////////////
+			total_num = Integer.parseInt(total);
+			if (total_num >= 2) {
+				JPanel hotP = new JPanel();
+				hotP.setBounds(418, 20, 77, 24);
+				hotP.setBackground(new Color(255, 165, 0));
+				panel.add(hotP);
+
+				JLabel hotL = new JLabel("Hot");
+				hotL.setForeground(Color.WHITE);
+				hotL.setFont(new Font("±¼¸²", Font.BOLD, 12));
+				hotP.add(hotL);
+			}
+			review_num = new JLabel(len + "°³");
+			review_num.setBounds(135, 685, 75, 23);
+			review_num.setFont(new Font("±¼¸²", Font.BOLD, 20));
+			panel.add(review_num);
+		} else {
+
+			JScrollPane scrollPane_1 = new JScrollPane();
+			scrollPane_1.setBounds(85, 820, 626, 111);
+			panel.add(scrollPane_1);
+
+			JPanel review_panel_mng = new JPanel();
+			scrollPane_1.setViewportView(review_panel_mng);
+			
 
 			JPanel review_panel = new JPanel();
 			review_panel.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(192, 192, 192),
 					new Color(192, 192, 192), new Color(192, 192, 192), new Color(192, 192, 192)));
 			review_panel.setLayout(null);
 			review_panel_mng.add(review_panel);
-
-			JLabel review_name = new JLabel(re.getMid());
-			review_name.setBounds(0, 10, 110, 20);
-			review_panel.add(review_name);
-
-			JLabel review_date = new JLabel(re.getRdate());
-			review_date.setBounds(0, 25, 119, 15);
+			
+			JLabel review_date = new JLabel("ÈÄ±â°¡ ¾ø½À´Ï´Ù.");
+			review_date.setBounds(42, 40, 119, 15);
 			review_panel.add(review_date);
-
-			JLabel review = new JLabel(re.getRspec());
-			review.setBounds(0, 31, 499, 78);
-			review_panel.add(review);
-
-			info_btn_recomm = new JButton("\uCD94\uCC9C");
-			info_btn_recomm.setBounds(540, 0, 67, 112);
-			review_panel.add(info_btn_recomm);
-			info_btn_recomm.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(192, 192, 192),
-					new Color(192, 192, 192), new Color(192, 192, 192), new Color(192, 192, 192)));
-			info_btn_recomm.setForeground(Color.BLACK);
-			info_btn_recomm.setFont(new Font("±¼¸²", Font.BOLD, 15));
-			info_btn_recomm.setBackground(Color.WHITE);
-
-			info_btn_recomm.addActionListener(hil);
+			
+			
+			review_num = new JLabel(0 + "°³");
+			review_num.setBounds(135, 685, 75, 23);
+			review_num.setFont(new Font("±¼¸²", Font.BOLD, 20));
+			panel.add(review_num);
 		}
-
-		String total = (total_num / len) + "";
-		String clean = (clean_num / len) + "";
-		String loc = (loc_num / len) + "";
-		String comm = (comm_num / len) + "";
-
-		JLabel total_score = new JLabel(total);
-		total_score.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(192, 192, 192), new Color(192, 192, 192),
-				new Color(192, 192, 192), new Color(192, 192, 192)));
-		total_score.setBounds(134, 732, 231, 24);
-		panel.add(total_score);
-
-		JLabel clean_score = new JLabel(clean);
-		clean_score.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(192, 192, 192), new Color(192, 192, 192),
-				new Color(192, 192, 192), new Color(192, 192, 192)));
-		clean_score.setBounds(134, 769, 231, 24);
-		panel.add(clean_score);
-
-		JLabel loc_score = new JLabel(loc);
-		loc_score.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(192, 192, 192), new Color(192, 192, 192),
-				new Color(192, 192, 192), new Color(192, 192, 192)));
-		loc_score.setBounds(461, 731, 250, 24);
-		panel.add(loc_score);
-
-		JLabel comm_score = new JLabel(comm);
-		comm_score.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(192, 192, 192), new Color(192, 192, 192),
-				new Color(192, 192, 192), new Color(192, 192, 192)));
-		comm_score.setBounds(461, 767, 250, 24);
-		panel.add(comm_score);
-		/////////////////////////////////////////////////////////////////////////////////////////////////////
-		total_num = Integer.parseInt(total);
-		if (total_num >= 2) {
-			JPanel hotP = new JPanel();
-			hotP.setBounds(418, 20, 77, 24);
-			hotP.setBackground(new Color(255, 165, 0));
-			panel.add(hotP);
-
-			JLabel hotL = new JLabel("Hot");
-			hotL.setForeground(Color.WHITE);
-			hotL.setFont(new Font("±¼¸²", Font.BOLD, 12));
-			hotP.add(hotL);
-		}
-		review_num = new JLabel(len + "°³");
-		review_num.setBounds(135, 685, 75, 23);
-		review_num.setFont(new Font("±¼¸²", Font.BOLD, 20));
-		panel.add(review_num);
 
 		bin.addMouseListener(hil);
 		binout.addMouseListener(hil);

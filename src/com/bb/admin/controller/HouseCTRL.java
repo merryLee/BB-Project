@@ -14,7 +14,7 @@ public class HouseCTRL extends MouseAdapter implements ActionListener {
 	
 	public HouseCTRL(HouseManagement houseManagement) {
 		this.houseManagement = houseManagement;
-		houseDAO = new HouseDAO();
+		houseDAO = new HouseDAO(houseManagement);
 	}
 	
 	@Override
@@ -35,18 +35,17 @@ public class HouseCTRL extends MouseAdapter implements ActionListener {
 			int num = houseManagement.table.getSelectedRowCount();
 			int[] hno = new int[num];
 			for (int i = 0; i < num; ++i) {
-				hno[i] = (int) houseManagement.model.getValueAt(row[i], 0);
+				hno[i] = (int) houseManagement.model.getValueAt(row[i], 1);
 				System.out.println(hno[i]);
 			}
 			houseDAO.delete(num, hno);
-
 		}
 		else if (obj == houseManagement.btnPermit) {
 			int[] row = houseManagement.table.getSelectedRows();
 			int num = houseManagement.table.getSelectedRowCount();
 			int[] hno = new int[num];
 			for (int i = 0; i < num; ++i) {
-				hno[i] = (int) houseManagement.model.getValueAt(row[i], 0);
+				hno[i] = (int) houseManagement.model.getValueAt(row[i], 1);
 				System.out.println(hno[i]);
 			}
 			houseDAO.permit(num, hno);
@@ -56,7 +55,7 @@ public class HouseCTRL extends MouseAdapter implements ActionListener {
 			int num = houseManagement.table.getSelectedRowCount();
 			int hno[] = new int[num];
 			for (int i = 0; i < num; ++i) {
-				hno[i] = (int) houseManagement.model.getValueAt(row[i], 0);
+				hno[i] = (int) houseManagement.model.getValueAt(row[i], 1);
 				System.out.println(hno[i]);
 			}
 			houseDAO.cancel(num, hno);

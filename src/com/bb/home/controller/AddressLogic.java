@@ -23,10 +23,10 @@ public class AddressLogic extends MouseAdapter implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		String key = e.getActionCommand();
+		Object obj = e.getSource();
 		String keyword = "";
 
-		if ("검색".equals(key)) {
+		if (obj == address.searchTf || obj == address.searchBtn) {
 			keyword = address.searchTf.getText();
 			resultList = adao.selectAddress(keyword);
 			System.out.println("다오 - 검색쿼리실행성공!");

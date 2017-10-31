@@ -44,9 +44,11 @@ public class Review extends JPanel {
 	
 	public JTextArea reviewSpec = new JTextArea();
 	public Main_frame main_frame;
-	private JButton submit;
+	public MypageMainDto mypagemaindto;
+	public JButton submit;
 	
 	public Review(Main_frame main_frame, MypageMainDto mypagemaindto ) {
+		this.mypagemaindto = mypagemaindto;
 		this.main_frame = main_frame;
 		setBounds(new Rectangle(0, 0, 775, 559));
 		setBackground(Color.WHITE);

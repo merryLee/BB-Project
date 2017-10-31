@@ -6,10 +6,11 @@ import java.util.Calendar;
 
 import com.bb.jdbc.DBClose;
 import com.bb.jdbc.DBConnection;
+import com.bb.mypage.model.MypageMainDto;
 
 public class ReviewDao {
 	
-	public int insertReview(ReviewDto reviewDto) {
+	public int insertReview(ReviewDto reviewDto , MypageMainDto mypagemaindto) {
 		int cnt = 0;
 		Connection conn = null;
 		Statement stmt = null;
@@ -21,11 +22,10 @@ public class ReviewDao {
 			String strDate = dateFormat.format(Calendar.getInstance().getTime());
 			strDate = "DATE '" + strDate + "'";
 			System.out.println(strDate);
-			int bno = 1234;
 			
 			String sql = "";
 			sql += "INSERT INTO rev_mng (rno, bno, rscore1, rscore2, rscore3, rscore4, rspec, rdate, rcnt) \n";
-			sql += "VALUES ('10001001', '1234567', '" + 
+			sql += "VALUES ( REV_SEQ.NEXTVAL ," + mypagemaindto.getBno() +", '" + 
 					reviewDto.getRscore1() + "', '" + reviewDto.getRscore2() + 
 					"', '" + reviewDto.getRscore3() + "', '" + reviewDto.getRscore4() + 
 					"', '" + reviewDto.getRspec() + "', " + strDate + ", 0)";

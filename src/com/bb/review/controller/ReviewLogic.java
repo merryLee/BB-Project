@@ -59,10 +59,11 @@ public class ReviewLogic implements ActionListener {
 		
 		reviewDto.setRspec(review.reviewSpec.getText());
 
-		int cnt = reviewDao.insertReview(reviewDto);
+		int cnt = reviewDao.insertReview(reviewDto,review.mypagemaindto);
 		if (cnt != 0) {
 			System.out.println("리뷰등록성공");
 			review.main_frame.changePanel("mypagemain");
+			review.remove(review.submit);
 		} else {
 			System.out.println("리뷰등록실패TT");
 		}

@@ -26,8 +26,8 @@ public class BookManagement extends JPanel {
 	public JTextField tfBguest;
 	public JTextField tfHhost;
 	
-	public static Vector<String> column;
-	public static DefaultTableModel model;
+	public Vector<String> column;
+	public DefaultTableModel model;
 	public JTable table;
 	public JScrollPane scrollPane;
 
@@ -38,9 +38,8 @@ public class BookManagement extends JPanel {
 	 * Create the panel.
 	 */
 	public BookManagement() {
-		setBorder(new EmptyBorder(0, 0, 0, 0));		
+		setBorder(new EmptyBorder(0, 0, 0, 0));
 //		setBackground(SystemColor.desktop);
-		setBackground(Color.WHITE);
 		setBounds(new Rectangle(0, 0, 753, 553));
 		setLayout(null);
 
@@ -88,14 +87,15 @@ public class BookManagement extends JPanel {
 		add(btnSearch);
 		
 		column = new Vector<String>();
-		column.addElement("숙소번호");
+		column.addElement("NO.");
+		column.addElement("예약번호");
+		column.addElement("손님이름");
 		column.addElement("숙소이름");
 		column.addElement("주인이름");
-		column.addElement("숙소가격");
-		column.addElement("평균평점");
+		column.addElement("입실일자");
+		column.addElement("퇴실일자");
+		column.addElement("예약일자");
 		column.addElement("예약상태");
-		column.addElement("등록일자");
-		column.addElement("등록상태");
 		
 		model = new DefaultTableModel(column, 0) {
 			public boolean isCellEditable(int row, int col) {
@@ -107,14 +107,15 @@ public class BookManagement extends JPanel {
 		
 		table = new JTable(model);
 		
-//		table.getColumn("예약번호").setPreferredWidth(20);
-//		table.getColumn("손님이름").setPreferredWidth(20);
-//		table.getColumn("숙소이름").setPreferredWidth(20);
-//		table.getColumn("주인이름").setPreferredWidth(20);
-//		table.getColumn("입실일자").setPreferredWidth(10);
-//		table.getColumn("퇴실일자").setPreferredWidth(10);
-//		table.getColumn("예약일자").setPreferredWidth(120);
-//		table.getColumn("예약상태").setPreferredWidth(10);
+		table.getColumn("NO.").setPreferredWidth(10);
+		table.getColumn("예약번호").setPreferredWidth(10);
+		table.getColumn("손님이름").setPreferredWidth(10);
+		table.getColumn("숙소이름").setPreferredWidth(10);
+		table.getColumn("주인이름").setPreferredWidth(10);
+		table.getColumn("입실일자").setPreferredWidth(60);
+		table.getColumn("퇴실일자").setPreferredWidth(60);
+		table.getColumn("예약일자").setPreferredWidth(60);
+		table.getColumn("예약상태").setPreferredWidth(10);
 		
 		table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 		table.setSelectionBackground(Color.GRAY);

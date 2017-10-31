@@ -3,9 +3,9 @@ package com.bb.admin.controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 import com.bb.admin.model.BookDAO;
+import com.bb.admin.view.Alert;
 import com.bb.admin.view.BookManagement;
 
 public class BookCTRL extends MouseAdapter implements ActionListener {
@@ -13,9 +13,9 @@ public class BookCTRL extends MouseAdapter implements ActionListener {
 	public BookManagement bookManagement;
 	public BookDAO bookDAO;
 	
-	public BookCTRL(BookManagement book) {
-		this.bookManagement = book;
-		bookDAO = new BookDAO();
+	public BookCTRL(BookManagement bookManagement) {
+		this.bookManagement = bookManagement;
+		bookDAO = new BookDAO(bookManagement);
 	}
 
 	@Override
@@ -35,20 +35,24 @@ public class BookCTRL extends MouseAdapter implements ActionListener {
 			int num = bookManagement.table.getSelectedRowCount();
 			int[] bno = new int[num];
 			for (int i = 0; i < num; ++i) {
-				bno[i] = (int) bookManagement.table.getValueAt(row[i], 0);
+				bno[i] = (int) bookManagement.table.getValueAt(row[i], 1);
 				System.out.println(bno[i]);
 			}
-			bookDAO.delete(num, bno);
+			if (bookDAO.isPossibleToDelete(num, bno)) {
+				bookDAO.delete(num, bno);				
+			}
+			else {
+				Alert alert = new Alert("선택하신 예약 건은 삭제가 불가합니다.");
+			}
 		}
 	}
 
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		
-		if (e.getClickCount() == 2) {
+//	@Override
+//	public void mouseClicked(MouseEvent e) {
+//		
+//		if (e.getClickCount() == 2) {
 //			상세페이지 이동
-		}
-	}
-	
+//		}
+//	}
 	
 }

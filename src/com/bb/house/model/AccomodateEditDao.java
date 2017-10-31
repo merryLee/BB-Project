@@ -22,7 +22,7 @@ public class AccomodateEditDao {
 		Connection conn = null;
 		Statement stmt = null;
 		ResultSet rs = null;
-		HouseDto housedto = new HouseDto();		
+		HouseDto housedto = null;		
 		try {
 			conn = DBConnection.makeConnection();
 			String sql = "";
@@ -33,19 +33,20 @@ public class AccomodateEditDao {
 			rs = stmt.executeQuery(sql);
 			
 			if(rs.next()) {
+				housedto = new HouseDto();
 				housedto.setHname(rs.getString("HNAME"));
 				housedto.setHloc(rs.getString("HLOC"));
 				housedto.setHdetail(rs.getString("HDETAIL"));
 				housedto.setHprice(rs.getInt("HPRICE"));
 				housedto.setHmax(rs.getInt("HMAX"));
 				housedto.setConvcode(rs.getString("CONVCODE"));
+				System.out.println(rs.getString("CONVCODE"));
 				housedto.setHintro(rs.getString("HINTRO"));
 				housedto.setHphone(rs.getString("HPHONE"));
 				housedto.setHpath1(rs.getString("THUMB1"));
 				housedto.setHpath2(rs.getString("THUMB2"));
 				housedto.setHpath3(rs.getString("THUMB3"));
-				
-			}
+			}else System.out.println("³ñ!!!");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

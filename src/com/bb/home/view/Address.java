@@ -26,7 +26,7 @@ public class Address extends JFrame {
 
 	private JLabel searchLbl = new JLabel("도로명 주소를 입력해주세요. (ex 제주, 서귀포시, 삼작로292번길)");
 	public JTextField searchTf = new JTextField();
-	private JButton searchBtn = new JButton("검색");
+	public JButton searchBtn = new JButton("검색");
 
 	public JList<String> list;
 	public DefaultListModel<String> listModel;
@@ -79,6 +79,7 @@ public class Address extends JFrame {
 		//
 		// dateTable.addMouseListener(scl);
 		// b1.addActionListener(scl);
+		searchTf.addActionListener(al);
 		searchBtn.addActionListener(al);
 		list.addMouseListener(al);
 

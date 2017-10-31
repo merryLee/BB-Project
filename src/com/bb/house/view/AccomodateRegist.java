@@ -3,6 +3,7 @@ package com.bb.house.view;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Label;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -34,7 +35,7 @@ import com.bb.house.model.HouseInfoDao;
 public class AccomodateRegist extends JPanel {
 	public JTextField regi_name;
 	public JTextField regi_phone;
-	public JTextField regi_loc;
+	public JLabel regi_loc;
 	public JTextField regi_detail;
 	public JTextField regi_price;
 	public JTextField regi_maxp;
@@ -72,10 +73,10 @@ public class AccomodateRegist extends JPanel {
 	 */
 	
 	public AccomodateRegist(Main_frame main_frame) {
+		
 		this.main = main_frame;
 		
 		setBackground(new Color(255, 255, 255));
-		setBackground(Color.WHITE);
 		setBounds(new Rectangle(0, 0, 775, 559));
 		setLayout(null);
 		
@@ -103,7 +104,7 @@ public class AccomodateRegist extends JPanel {
 		label.setBounds(142, 143, 57, 15);
 		panel_s.add(label);
 		
-		regi_loc = new JTextField();
+		regi_loc = new JLabel();
 		regi_loc.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(192, 192, 192), new Color(192, 192, 192), new Color(192, 192, 192), new Color(192, 192, 192)));
 		regi_loc.setBounds(142, 168, 226, 21);
 		panel_s.add(regi_loc);
@@ -112,11 +113,11 @@ public class AccomodateRegist extends JPanel {
 		regi_detail.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(192, 192, 192), new Color(192, 192, 192), new Color(192, 192, 192), new Color(192, 192, 192)));
 		regi_detail.setBounds(402, 168, 216, 21);
 		panel_s.add(regi_detail);
-		
+
 		JLabel label_1 = new JLabel("\uC0C1\uC138\uC8FC\uC18C");
 		label_1.setBounds(400, 143, 57, 15);
 		panel_s.add(label_1);
-		
+
 		regi_price = new JTextField();
 		regi_price.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(192, 192, 192), new Color(192, 192, 192), new Color(192, 192, 192), new Color(192, 192, 192)));
 		regi_price.setBounds(142, 224, 226, 21);
@@ -204,31 +205,14 @@ public class AccomodateRegist extends JPanel {
 		con12_front24.setBounds(357, 56, 115, 23);
 		panel.add(con12_front24);
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
 		JLabel label_5 = new JLabel("\uC219\uC18C \uC0AC\uC9C4");
 		label_5.setBounds(142, 378, 57, 15);
 		panel_s.add(label_5);
-		
-		
 		
 		regi_picture = new JLabel();	
 		regi_picture.setBackground(new Color(102, 205, 170));
 		regi_picture.setBounds(142, 403, 99, 80);
 		panel_s.add(regi_picture);
-		
-		
-		
-		
 		
 		regi_file_btn1 = new JButton("\uD30C\uC77C\uC120\uD0DD"); // 첫번쨰 번튼
 		regi_file_btn1.setForeground(Color.WHITE);
@@ -247,11 +231,6 @@ public class AccomodateRegist extends JPanel {
 		regi_file_btn3.setBackground(new Color(35, 86, 149));
 		regi_file_btn3.setBounds(521, 461, 97, 23);
 		panel_s.add(regi_file_btn3);
-		
-		
-		
-		
-		
 		
 		JLabel label_7 = new JLabel("\uC18C\uAC1C\uAE00(1000\uC790 \uC774\uB0B4)");
 		label_7.setBounds(142, 498, 121, 21);
@@ -315,7 +294,8 @@ public class AccomodateRegist extends JPanel {
 		regi_btn.addActionListener(arl);
 		regi_price.addKeyListener(arl);
 		regi_maxp.addKeyListener(arl);
-		
+		regi_loc.addMouseListener(arl);
+		regi_phone.addKeyListener(arl);
 		
 	}
 }

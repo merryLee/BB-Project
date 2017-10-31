@@ -17,6 +17,8 @@ import com.bb.common.view.Main_frame;
 import com.bb.house.controller.AccomodateEditLogic;
 import com.bb.house.model.AccomodateEditDao;
 import com.bb.house.model.HouseDto;
+import com.bb.mypage.view.MypageMain;
+
 import javax.swing.JCheckBox;
 import javax.swing.JFileChooser;
 import javax.swing.ImageIcon;
@@ -35,7 +37,7 @@ public class AccomodateEdit extends JPanel {
 	public JTextField hdetail;
 	public JTextField hprice;
 	public JButton edit_btn;
-	public AccomodateEditDao dao = new AccomodateEditDao();
+	
 	public int mno;
 	public JTextField hmax;
 	public JLabel hpath1;
@@ -58,11 +60,14 @@ public class AccomodateEdit extends JPanel {
 	public JLabel thumb1_img;
 	AccomodateEditLogic logic = new AccomodateEditLogic(this);
 	public HouseDto dto;
+	MypageMain mypagemain;
+	String conv;
 	/**
 	 * Create the panel.
 	 * @param mypageMain 
 	 */
-	public AccomodateEdit(Main_frame main_frame, int hno) {
+	public AccomodateEdit(MypageMain mypageMain, int hno) {
+		this.mypagemain = mypageMain;
 		setBackground(new Color(255, 255, 255));
 		setBackground(Color.WHITE);
 		setBounds(new Rectangle(0, 0, 775, 700));
@@ -84,9 +89,11 @@ public class AccomodateEdit extends JPanel {
 		label.setBounds(137, 87, 57, 15);
 		panel_mng.add(label);
 		
-		if(main_frame.isSession()) {
-			mno = main_frame.getMno();
+		if(mypageMain.main_frame.isSession()) {
+			AccomodateEditDao dao = new AccomodateEditDao();
+			mno = mypageMain.main_frame.getMno();
 			dto = dao.accomodateValue(mno, hno);
+			System.out.println("hno :" + hno);
 		}
 		hname = new JTextField(dto.getHname());
 		hname.setColumns(10);
@@ -212,7 +219,8 @@ public class AccomodateEdit extends JPanel {
 		c12.setBounds(357, 56, 115, 23);
 		panel.add(c12);
 		
-		String conv = dto.getConvcode();
+		conv = dto.getConvcode();
+		System.out.println("conv : "+ conv);
 		if (conv.substring(0, 1).equals("1")) {
 			c1.setSelected(true);
 		}
@@ -342,7 +350,7 @@ public class AccomodateEdit extends JPanel {
 		edit_btn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				logic.update(hno);
-				main_frame.changePanel("mypagemain");			
+				mypageMain.main_frame.changePanel("mypagemain");			
 			}
 		});
 		edit_btn.setForeground(Color.WHITE);

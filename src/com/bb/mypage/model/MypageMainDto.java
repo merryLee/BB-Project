@@ -19,6 +19,7 @@ public class MypageMainDto {
 	private String hphone;
 	private String hloc;
 	private String breq;
+
 	public String getHloc() {
 		return hloc;
 	}

@@ -27,8 +27,8 @@ public class HouseManagement extends JPanel {
 	public JTextField tfHhost;
 	public JTextField tfHname;
 	
-	public static Vector<String> column;
-	public static DefaultTableModel model;
+	public Vector<String> column;
+	public DefaultTableModel model;
 	public JTable table;
 	public JScrollPane scrollPane;
 	
@@ -43,7 +43,6 @@ public class HouseManagement extends JPanel {
 	public HouseManagement() {
 		setBounds(new Rectangle(0, 0, 753, 553));
 //		setBackground(SystemColor.desktop);
-		setBackground(Color.WHITE);
 		setBorder(new EmptyBorder(0, 0, 0, 0));
 		setLayout(null);
 		
@@ -100,6 +99,7 @@ public class HouseManagement extends JPanel {
 		add(btnSearch);
 		
 		column = new Vector<String>();
+		column.addElement("NO.");
 		column.addElement("숙소번호");
 		column.addElement("숙소이름");
 		column.addElement("주인이름");
@@ -119,13 +119,14 @@ public class HouseManagement extends JPanel {
 		
 		table = new JTable(model);
 		
-		table.getColumn("숙소번호").setPreferredWidth(20);
-		table.getColumn("숙소이름").setPreferredWidth(20);
-		table.getColumn("주인이름").setPreferredWidth(20);
-		table.getColumn("숙소가격").setPreferredWidth(20);
+		table.getColumn("NO.").setPreferredWidth(10);
+		table.getColumn("숙소번호").setPreferredWidth(10);
+		table.getColumn("숙소이름").setPreferredWidth(10);
+		table.getColumn("주인이름").setPreferredWidth(10);
+		table.getColumn("숙소가격").setPreferredWidth(10);
 		table.getColumn("평균평점").setPreferredWidth(10);
 		table.getColumn("예약상태").setPreferredWidth(10);
-		table.getColumn("등록일자").setPreferredWidth(120);
+		table.getColumn("등록일자").setPreferredWidth(60);
 		table.getColumn("등록상태").setPreferredWidth(10);
 		
 		table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);

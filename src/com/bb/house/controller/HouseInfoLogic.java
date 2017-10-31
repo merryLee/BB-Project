@@ -21,10 +21,10 @@ import javax.swing.border.BevelBorder;
 import com.bb.house.model.ConvDto;
 import com.bb.house.model.HouseDto;
 import com.bb.house.model.HouseInfoDao;
-import com.bb.review.model.ReviewDto;
 import com.bb.home.view.Home;
 import com.bb.home.view.SwingCalendar;
 import com.bb.house.view.HouseInfo;
+import com.bb.review.model.ReviewDto;
 import com.bb.common.view.Main_frame;
 
 public class HouseInfoLogic extends MouseAdapter implements ActionListener {
@@ -36,10 +36,10 @@ public class HouseInfoLogic extends MouseAdapter implements ActionListener {
 	SwingCalendar sc = new SwingCalendar();
 
 	HouseInfo hi;
+	
 	public HouseInfoLogic(HouseInfo hi) {
 		this.hi = hi;
 	}
-	
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -56,8 +56,7 @@ public class HouseInfoLogic extends MouseAdapter implements ActionListener {
 		
 	}
 
-
-
+	
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		Object ob = e.getSource();

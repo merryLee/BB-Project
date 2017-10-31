@@ -46,14 +46,14 @@ public class Search extends JPanel {
 	public JLabel dateOut = new JLabel();
 	public JComboBox<String> person = new JComboBox<String>();
 
-	JLabel labelR = new JLabel("SEARCH");
+	JLabel labelR = new JLabel("RESULT");
 	public List<HouseDto> hList;
 	public List<JButton> hBtnList;
 
 	public HomeDao homeDao = new HomeDao();
-	
+
 	public Search(Main_frame main_frame, List<HouseDto> searchList) {
-		
+
 		this.main_frame = main_frame;
 		this.searchList = searchList;
 		System.out.println("search생성성공!");
@@ -62,8 +62,9 @@ public class Search extends JPanel {
 		setLayout(null);
 
 		JPanel p = new JPanel();
+		p.setBackground(Color.WHITE);
 		p.setLayout(null);
-		
+
 		mainImg = new ImageIcon(".\\img\\blackBB.jpg");
 		JPanel panel = new JPanel() {
 			public void paintComponent(Graphics g) {
@@ -72,6 +73,7 @@ public class Search extends JPanel {
 				// super.paintComponent(g);
 			}
 		};
+		panel.setBackground(Color.WHITE);
 		panel.setBounds(22, 30, 200, 200);
 		mainText1.setText("Best Bed\uB97C BB\uC5D0\uC11C!");
 		mainText1.setForeground(new Color(0, 115, 170));
@@ -134,49 +136,51 @@ public class Search extends JPanel {
 		labelR.setBounds(22, 351, 200, 28);
 		p.add(labelR);
 
-		
-		
 		JScrollPane pane = new JScrollPane();
+		pane.setBackground(Color.WHITE);
 		pane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		pane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		pane.setBounds(0, 0, 775, 559);
 		add(pane, "Center");
-		
+
 		hBtnList = new ArrayList<JButton>();
 		JButton hBtn;
 		int size = searchList.size();
-		System.out.println("사이즈값 불러오기성공");
-
-		JPanel homePanel =  new JPanel();
-		JPanel homeContent = null;
+		System.out.println("사이즈값 불러오기성공" + size);
 		
+		JPanel homePanel = new JPanel();
+
+		int rowcount = (size - 1) / 4 + 1;
+		int blank = 4 - (size % 4 == 0 ? 4 : size % 4);
+		
+		p.setPreferredSize(new Dimension(775, 559 + (154 * (rowcount - 1))));
+		homePanel.setBounds(22, 380, 711, 154 * (rowcount)); // 여기의 길이가 늘어나야함.
+		homePanel.setLayout(new GridLayout(rowcount, 4, 20, 20));
+		homePanel.setBackground(Color.WHITE);
+
 		for (int i = 0; i < size; i++) {
-			if (i % 4 == 0) {
-				p.setPreferredSize(new Dimension(775, 559 + (154 * (i/4+1))));
-				homePanel.setBounds(22, 380, 711, 154 * (i/4+1)); // 여기의 길이가 늘어나야함.
-				homePanel.setLayout(new GridLayout(1 + (i/4), 1, 0, 20));
-				homeContent = new JPanel(new GridLayout(1, 4, 20, 0));
-				homeContent.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(192, 192, 192), new Color(192, 192, 192), new Color(192, 192, 192), new Color(192, 192, 192)));
-			}
 			hBtn = new JButton("hBtn" + i, new ImageIcon(searchList.get(i).getHpath1()));
 			System.out.println(searchList.get(i).getHpath1());
 			hBtnList.add(hBtn);
-			homeContent.add(hBtn);
-			if (i % 4 == 3 || i == size-1)
-				homePanel.add(homeContent);
+			homePanel.add(hBtn);
 		}
 		
-	
+		for (int i = 0; i< blank; i++) {
+			homePanel.add(new JLabel());
+		}
+
 		p.add(homePanel);
 		pane.setViewportView(p);
-	
+
 		SearchLogic sl = new SearchLogic(this);
 
 		address.addMouseListener(sl);
 		dateIn.addMouseListener(sl);
 		dateOut.addMouseListener(sl);
 
+		for (int i = 0; i < size; i++) { // 리스너추가
+			hBtnList.get(i).addActionListener(sl);
+		}
 		searchBtn.addActionListener(sl);
-
 	}
 }

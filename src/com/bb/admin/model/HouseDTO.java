@@ -2,6 +2,7 @@ package com.bb.admin.model;
 
 public class HouseDTO {
 	
+	private int no; //NO.
 	private int hno; //숙소번호
 	private String hname; //숙소이름
 	private String hhost; //주인이름
@@ -10,6 +11,14 @@ public class HouseDTO {
 	private String bstatus; //예약상태
 	private String hdate; //등록일자
 	private String hstatus; //등록상태
+	
+	public int getNo() {
+		return no;
+	}
+	
+	public void setNo(int no) {
+		this.no = no;
+	}
 	
 	public int getHno() {
 		return hno;

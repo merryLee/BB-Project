@@ -16,7 +16,7 @@ public class DBConnection {
 	}
 	
 	public static Connection makeConnection() throws SQLException {
-			return DriverManager.getConnection("jdbc:oracle:thin:@Jungsh:1521:xe","BBA","BBA");
+			return DriverManager.getConnection("jdbc:oracle:thin:@192.168.12.40:1521:xe","BBA","BBA");
 	}
 
 }

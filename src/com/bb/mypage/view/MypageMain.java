@@ -66,6 +66,7 @@ public class MypageMain extends JPanel {
 		setBackground(Color.WHITE);
 		setLayout(null);
 		Reservation_Confirm rc[] = new Reservation_Confirm[4];
+		AccomodateEdit ae[] = new AccomodateEdit[4];
 		Reservation_Review rv[] = new Reservation_Review[4];
 		if (main_frame.isSession()) {
 			session = main_frame.isSession();
@@ -77,7 +78,8 @@ public class MypageMain extends JPanel {
 			} else {
 				int len = glist.size();
 				for (int i = 0; i < len; i++) {
-					regdto[i] = glist.get(i);	
+					regdto[i] = glist.get(i);
+					ae[i] = new AccomodateEdit(this, regdto[i].getHno());
 					aimg[i] = new ImageIcon(regdto[i].getPath());					
 				}
 				for (int i = 0; i < 4 - len; i++) {
@@ -112,11 +114,12 @@ public class MypageMain extends JPanel {
 		homepic1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {	
 				delete = resdto[0].getHno();
-				if(delete != 0 && resdto[0].getBin().before(time.getTime())) {
-					
+
+				System.out.println(resdto[0].getBin()+ "VS" + time.getTime());
+				if(delete != 0 && resdto[0].getBin().after(time.getTime())) {
 				main_frame.intentp.add("reservation_confirm", rc[0]);
 				main_frame.changePanel("reservation_confirm");
-				}else if(delete != 0 && resdto[0].getBin().after(time.getTime())) {
+				}else if(delete != 0 && resdto[0].getBin().before(time.getTime())) {
 					main_frame.intentp.add("reservation_review", rv[0]);
 					main_frame.changePanel("reservation_review");
 				}else {
@@ -131,10 +134,11 @@ public class MypageMain extends JPanel {
 		homepic2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				delete = resdto[1].getHno();
-				if(delete != 0 && resdto[1].getBin().before(time.getTime())) {
+				if(delete != 0 && resdto[1].getBin().after(time.getTime())) {
+					System.out.println(resdto[1].getBin()+ "VS" + time.getTime());
 				main_frame.intentp.add("reservation_confirm", rc[1]);
 				main_frame.changePanel("reservation_confirm");
-				}else if(delete != 0 && resdto[1].getBin().after(time.getTime())) {
+				}else if(delete != 0 && resdto[1].getBin().before(time.getTime())) {
 					main_frame.intentp.add("reservation_review", rv[1]);
 					main_frame.changePanel("reservation_review");
 				}else {
@@ -149,10 +153,11 @@ public class MypageMain extends JPanel {
 		homepic3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				delete = resdto[2].getHno();
-				if(delete != 0 && resdto[2].getBin().before(time.getTime())) {
+				if(delete != 0 && resdto[2].getBin().after(time.getTime())) {
+					System.out.println(resdto[2].getBin()+ "VS" + time.getTime());
 				main_frame.intentp.add("reservation_confirm", rc[2]);
 				main_frame.changePanel("reservation_confirm");
-				}else if(delete != 0 && resdto[2].getBin().after(time.getTime())) {
+				}else if(delete != 0 && resdto[2].getBin().before(time.getTime())) {
 					main_frame.intentp.add("reservation_review", rv[2]);
 					main_frame.changePanel("reservation_review");
 				}else {
@@ -167,10 +172,11 @@ public class MypageMain extends JPanel {
 		homepic4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				delete = resdto[3].getHno();
-				if(delete != 0 && resdto[3].getBin().before(time.getTime())) {
+				if(delete != 0 && resdto[3].getBin().after(time.getTime())) {
+				System.out.println(resdto[3].getBin()+ "VS" + time.getTime());
 				main_frame.intentp.add("reservation_confirm", rc[3]);
 				main_frame.changePanel("reservation_confirm");
-				}else if(delete != 0 && resdto[3].getBin().after(time.getTime())) {
+				}else if(delete != 0 && resdto[3].getBin().before(time.getTime())) {
 					main_frame.intentp.add("reservation_review", rv[3]);
 					main_frame.changePanel("reservation_review");
 				}else {
@@ -223,8 +229,8 @@ public class MypageMain extends JPanel {
 				if (regdto[0].getHprice() == 0) {
 					main_frame.changePanel("accomodateregist");
 				} else {
-					main_frame.intentp.add("accomdateedit1",new AccomodateEdit(main_frame,regdto[0].getHno()));
-					main_frame.changePanel("accomdateedit1");
+					main_frame.intentp.add("accomdateedit",ae[0]);
+					main_frame.changePanel("accomdateedit");
 				}
 			}
 		});
@@ -236,40 +242,43 @@ public class MypageMain extends JPanel {
 				if (regdto[1].getHprice() == 0) {
 					main_frame.changePanel("accomodateregist");
 				} else {
-					main_frame.intentp.add("accomdateedit2",new AccomodateEdit(main_frame,regdto[1].getHno()));
-					main_frame.changePanel("accomdateedit2");
+					main_frame.intentp.add("accomdateedit",ae[1]);
+					main_frame.changePanel("accomdateedit");
 				}
 			}
 		});
 		addhome2.setBounds(228, 401, 130, 113);
 		add(addhome2);
-		addhome4 = new JButton(aimg[2]);
-		addhome4.addActionListener(new ActionListener() {
+		
+		addhome3 = new JButton(aimg[2]);
+		addhome3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (regdto[2].getHprice() == 0) {
 					main_frame.changePanel("accomodateregist");
 				} else {
-					main_frame.intentp.add("accomdateedit3",new AccomodateEdit(main_frame,regdto[2].getHno()));
-					main_frame.changePanel("accomdateedit3");
+					main_frame.intentp.add("accomdateedit",ae[2]);
+					main_frame.changePanel("accomdateedit");
+				}
+			}
+		});
+		addhome3.setBounds(390, 401, 130, 113);
+		add(addhome3);
+		
+		addhome4 = new JButton(aimg[3]);
+		addhome4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (regdto[3].getHprice() == 0) {
+					main_frame.changePanel("accomodateregist");
+				} else {
+					main_frame.intentp.add("accomdateedit",ae[3]);
+					main_frame.changePanel("accomdateedit");
 				}
 			}
 		});
 		addhome4.setBounds(547, 401, 130, 113);
 		add(addhome4);
 
-		addhome3 = new JButton(aimg[3]);
-		addhome3.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (regdto[3].getHprice() == 0) {
-					main_frame.changePanel("accomodateregist");
-				} else {
-					main_frame.intentp.add("accomdateedit4",new AccomodateEdit(main_frame,regdto[3].getHno()));
-					main_frame.changePanel("accomdateedit4");
-				}
-			}
-		});
-		addhome3.setBounds(390, 401, 130, 113);
-		add(addhome3);
+		
 
 		JTextArea addhomepic1_textArea = new JTextArea(regdto[0].getHname() + "\n$" + regdto[0].getHprice());
 		addhomepic1_textArea.setFont(new Font("Monospaced", Font.BOLD, 15));

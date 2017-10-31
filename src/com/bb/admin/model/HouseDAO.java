@@ -5,7 +5,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import com.bb.admin.model.HouseDTO;
 import com.bb.admin.view.Alert;
 import com.bb.admin.view.HouseManagement;
 import com.bb.jdbc.DBClose;
@@ -13,13 +12,15 @@ import com.bb.jdbc.DBConnection;
 
 public class HouseDAO {
 	
-	public HouseDAO() {
-		
+	public HouseManagement houseManagement;
+	
+	public HouseDAO(HouseManagement houseManagement) {
+		this.houseManagement = houseManagement;
 	}
 	
 	public void init() {
-		if (HouseManagement.model != null) {
-			HouseManagement.model.setNumRows(0);
+		if (houseManagement.model != null) {
+			houseManagement.model.setNumRows(0);
 			return;
 		}
 	}
@@ -39,6 +40,7 @@ public class HouseDAO {
 			while(rs.next()) {
 				HouseDTO houseDTO = new HouseDTO();
 				
+				houseDTO.setNo(rs.getInt("ROWNUM"));
 				houseDTO.setHno(rs.getInt("숙소번호"));
 				houseDTO.setHname(rs.getString("숙소이름"));
 				houseDTO.setHhost(rs.getString("주인이름"));
@@ -48,7 +50,8 @@ public class HouseDAO {
 				houseDTO.setHdate(rs.getString("등록일자"));
 				houseDTO.setHstatus(rs.getString("등록상태"));
 				
-				HouseManagement.model.addRow(new Object[] {
+				houseManagement.model.addRow(new Object[] {
+						houseDTO.getNo(),
 						houseDTO.getHno(), 
 						houseDTO.getHname(), 
 						houseDTO.getHhost(), 
@@ -59,6 +62,7 @@ public class HouseDAO {
 						houseDTO.getHstatus()
 				});
 			}
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -81,6 +85,7 @@ public class HouseDAO {
 			while(rs.next()) {
 				HouseDTO houseDTO = new HouseDTO();
 				
+				houseDTO.setNo(rs.getInt("ROWNUM"));
 				houseDTO.setHno(rs.getInt("숙소번호"));
 				houseDTO.setHname(rs.getString("숙소이름"));
 				houseDTO.setHhost(rs.getString("주인이름"));
@@ -90,7 +95,8 @@ public class HouseDAO {
 				houseDTO.setHdate(rs.getString("등록일자"));
 				houseDTO.setHstatus(rs.getString("등록상태"));
 				
-				HouseManagement.model.addRow(new Object[] {
+				houseManagement.model.addRow(new Object[] {
+						houseDTO.getNo(),
 						houseDTO.getHno(), 
 						houseDTO.getHname(), 
 						houseDTO.getHhost(), 
@@ -101,8 +107,7 @@ public class HouseDAO {
 						houseDTO.getHstatus()
 				});
 			}
-//			System.out.println("model count:" + HouseManagement.model.getRowCount());
-			HouseManagement.model.fireTableDataChanged();
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -123,7 +128,6 @@ public class HouseDAO {
 			Alert alert = new Alert(rn, "삭제");
 			
 			setData();
-			HouseManagement.model.fireTableDataChanged();
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -143,7 +147,6 @@ public class HouseDAO {
 			Alert alert = new Alert(rn, "허가");
 			
 			setData();
-			HouseManagement.model.fireTableDataChanged();
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -163,7 +166,6 @@ public class HouseDAO {
 			Alert alert = new Alert(rn, "취소");
 			
 			setData();
-			HouseManagement.model.fireTableDataChanged();
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -293,21 +295,20 @@ public class HouseDAO {
 		
 		String condition = "";
 		
-		if (!bstatus.equals("-")) {
+		if (!bstatus.equals("-"))
 			condition += " AND d.예약상태 = '" + bstatus + "'";
-		}
-		if (!hstatus.equals("-")) {
+		
+		if (!hstatus.equals("-"))
 			condition += "    AND d.등록상태 = '" + hstatus + "'";
-		}
-		if (!hdate.isEmpty()) {
-			condition += "    AND d.등록일자 LIKE '" + hdate +"'";
-		}
-		if (!hhost.isEmpty()) {
+		
+		if (!hdate.isEmpty())
+			condition += "    AND d.등록일자 LIKE '%" + hdate +"%'";
+		
+		if (!hhost.isEmpty())
 			condition += "    AND d.주인이름 LIKE '%" + hhost + "%'";
-		}
-		if (!hname.isEmpty()) {
+		
+		if (!hname.isEmpty())
 			condition += "    AND d.숙소이름 LIKE '%" + hname + "%'";
-		}
 		
 		sql += condition;
 		sql += ")e";

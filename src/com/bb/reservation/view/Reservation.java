@@ -18,8 +18,6 @@ import com.bb.mypage.view.MypageMain;
 import com.bb.reservation.model.ReservationDao;
 import com.bb.reservation.model.ReservationDto;
 
-import oracle.sql.DATE;
-
 import java.awt.event.ActionListener;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

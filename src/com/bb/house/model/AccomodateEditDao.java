@@ -28,7 +28,7 @@ public class AccomodateEditDao {
 			String sql = "";
 			sql += "SELECT h.hname, h.hloc, h.hdetail, h.hprice, h.hmax,  h.convcode, h.hintro, h.hphone, i.thumb1, i.thumb2, i.thumb3 \n";
 			sql += "FROM (house_mng) h , (house_img) i \n";
-			sql += "WHERE hhost = "+ mno +" AND (hstatus = 2 OR hstatus = 3) AND i.hno = h.hno AND h.HNO = " + hno;
+			sql += "WHERE hhost = "+ mno +" AND i.hno = h.hno AND h.HNO = " + hno;
 			stmt = conn.createStatement();
 			rs = stmt.executeQuery(sql);
 			

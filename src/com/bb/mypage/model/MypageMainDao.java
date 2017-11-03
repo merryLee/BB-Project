@@ -67,9 +67,9 @@ public class MypageMainDao {
 		try {
 			conn = DBConnection.makeConnection();
 			String sql = "";
-			sql += "select i.hno, i.thumb1, h.hname, h.hprice \n";
-			sql += "from (Select hno, hname, hprice From house_mng where hhost = "+ mno +") h , (house_img) i \n";
-			sql += "where h.hno = i.hno ";
+			sql += "select i.hno, i.thumb1, h.hname, h.hprice ,DECODE(h.hstatus,0,'삭제', 1, '등록중',2,'등록완료',3,'등록취소')\n";
+			sql += "from (Select hno, hname, hprice, hstatus From house_mng where hhost = "+ mno +") h , (house_img) i \n";
+			sql += "where h.hno = i.hno AND hstatus > 0";
 			stmt = conn.createStatement();
 			rs = stmt.executeQuery(sql);
 					
@@ -79,6 +79,7 @@ public class MypageMainDao {
 				mypagemaindto.setPath(rs.getString(2));
 				mypagemaindto.setHname(rs.getString(3));
 				mypagemaindto.setHprice(rs.getInt(4));
+				mypagemaindto.setHstatus(rs.getString(5));
 				list.add(mypagemaindto);			
 			}
 		} catch (SQLException e) {
@@ -100,7 +101,7 @@ public class MypageMainDao {
 			String sql = "";			
 			sql += "select rownum, b.bno, m.mname, b.bin, b.bout, b.BPERSON\n";
 			sql += "from book_mng b, house_mng h, mem_mng m\n";
-			sql += "where h.hno = b.hno AND h.hhost = "+ num +" AND m.mno = b.bguest AND b.bstatus=1";
+			sql += "where h.hno = b.hno AND h.hhost = "+ num +" AND m.mno = b.bguest AND b.bstatus=1 AND h.hstatus = 2";
 			stmt = conn.createStatement();
 			rs = stmt.executeQuery(sql);
 			

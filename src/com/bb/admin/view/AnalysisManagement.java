@@ -1,7 +1,9 @@
 package com.bb.admin.view;
 
 import java.awt.Rectangle;
-import java.awt.SystemColor;
+import java.nio.ByteBuffer;
+import java.nio.CharBuffer;
+import java.nio.charset.Charset;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -19,6 +21,7 @@ import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
 
 import com.bb.admin.controller.AnalysisCTRL;
+import java.awt.Font;
 
 public class AnalysisManagement extends JPanel {
 
@@ -174,8 +177,9 @@ public class AnalysisManagement extends JPanel {
 //        dataset.addValue(45.0, data, test12);
 		
         
+
 		chart = ChartFactory.createBarChart(
-        		"chart title",
+				"ÃÑ ¿¹¾à °Ç¼ö",
         		"xaxis title",
         		"yaxis title",
         		dataset,
@@ -186,6 +190,7 @@ public class AnalysisManagement extends JPanel {
         		);
 		
 		chartPanel = new ChartPanel(chart);
+		chartPanel.setFont(new Font("»õ±¼¸²", Font.PLAIN, 13));
 		chartPanel.setBorder(new EmptyBorder(0, 0, 0, 0));
 		chartPanel.setBounds(15, 86, 700, 404);
 		add(chartPanel);

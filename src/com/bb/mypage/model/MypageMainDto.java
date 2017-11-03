@@ -6,12 +6,12 @@ import java.util.Date;
 public class MypageMainDto {
 	
 	
-	private int bguest;
-	private int bno;
-	private int hno;
-	private String path;
+	private int bguest = 0;
+	private int bno = 0;
+	private int hno = 0;
+	private String path = "";
 	private String hname = "없음";
-	private int hprice;
+	private int hprice = 0;
 	private int rownum;
 	private String mname;
 	private Date bin;
@@ -19,7 +19,14 @@ public class MypageMainDto {
 	private String hphone;
 	private String hloc;
 	private String breq;
+	private String hstatus = "미등록";
 
+	public String getHstatus() {
+		return hstatus;
+	}
+	public void setHstatus(String hstatus) {
+		this.hstatus = hstatus;
+	}
 	public String getHloc() {
 		return hloc;
 	}

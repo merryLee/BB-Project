@@ -38,6 +38,16 @@ public class UserCTRL implements ActionListener {
 			}
 			userDAO.block(num, mno);
 		}
+		else if (obj == userManagement.btnUnBlock) {
+			int[] row = userManagement.table.getSelectedRows();
+			int num = userManagement.table.getSelectedRowCount();
+			int[] mno = new int[num];
+			for (int i = 0; i < num; ++i) {
+				mno[i] = (int) userManagement.table.getValueAt(row[i], 1);
+				System.out.println(mno[i]);
+			}
+			userDAO.unblock(num, mno);
+		}
 	}
 
 }

@@ -40,10 +40,10 @@ public class MypageMain extends JPanel {
 	private MypageMainDao dao = new MypageMainDao();
 	private List<MypageMainDto> glist = new ArrayList<MypageMainDto>();
 	private List<MypageMainDto> slist = new ArrayList<MypageMainDto>();
-	public MypageMainDto regdto[] = new MypageMainDto[4];
-	public MypageMainDto resdto[] = new MypageMainDto[4];
-	private ImageIcon aimg[] = new ImageIcon[4];
-	private ImageIcon rimg[] = new ImageIcon[4];
+	public MypageMainDto regdto[] = new MypageMainDto[100];
+	public MypageMainDto resdto[] = new MypageMainDto[100];
+	private ImageIcon aimg[] = new ImageIcon[100];
+	private ImageIcon rimg[] = new ImageIcon[100];
 	public JTextArea textArea;
 	public JTextArea textArea_1;
 	public JTextArea textArea_2;
@@ -62,54 +62,77 @@ public class MypageMain extends JPanel {
 
 	public MypageMain(Main_frame main_frame) {
 		this.main_frame = main_frame;
-		setBounds(new Rectangle(0, 0, 775, 559));
+		setBounds(new Rectangle(0, 0, 753, 553));
 		setBackground(Color.WHITE);
 		setLayout(null);
-		Reservation_Confirm rc[] = new Reservation_Confirm[4];
-		AccomodateEdit ae[] = new AccomodateEdit[4];
-		Reservation_Review rv[] = new Reservation_Review[4];
+		Reservation_Confirm rc[] = new Reservation_Confirm[100];
+		AccomodateEdit ae[] = new AccomodateEdit[100];
+		Reservation_Review rv[] = new Reservation_Review[100];
 		if (main_frame.isSession()) {
 			session = main_frame.isSession();
 			mno = main_frame.getMno();
 			glist = dao.pathOrvalue(mno);
 			slist = dao.rpathOrvalue(mno);
-			if (glist.isEmpty()) {
-
-			} else {
+			
 				int len = glist.size();
-				for (int i = 0; i < len; i++) {
+				int i = 0;				
+				for (i = 0; i < len; i++) {
 					regdto[i] = glist.get(i);
 					ae[i] = new AccomodateEdit(this, regdto[i].getHno());
 					aimg[i] = new ImageIcon(regdto[i].getPath());					
 				}
-				for (int i = 0; i < 4 - len; i++) {
-					regdto[3 - i] = new MypageMainDto();
-					aimg[3 - i] = new ImageIcon();
+				System.out.println("len : " + len);
+				System.out.println("i : " + i);
+				if(len == 1) {
+					i = 1;
+				}
+				for (int k = 0; k < 10 - i; k++) {
+					regdto[9 - k] = new MypageMainDto();
+					aimg[9 - k] = new ImageIcon();
 				}
 				len = slist.size();
-				for (int i = 0; i < len; i++) {					
+				i = 0;
+				System.out.println("len : " + len);
+				System.out.println("i : " + i);
+				for (i = 0; i < len; i++) {					
 					resdto[i] = slist.get(i);
 					rc[i] = new Reservation_Confirm(this, resdto[i]);
 					rv[i] = new Reservation_Review(this, resdto[i]);
 					rimg[i] = new ImageIcon(resdto[i].getPath());
 				}
-				for (int i = 0; i < 4 - len; i++) {
-					resdto[3 - i] = new MypageMainDto();
-					rimg[3 - i] = new ImageIcon();
+				System.out.println("len : " + len);
+				System.out.println("i : " + i);
+				if(len == 1) {
+					i = 1;
 				}
-			}
+				System.out.println("len : " + len);
+				System.out.println("i : " + i);
+				for (int k = 0; k < 10 - i; k++) {
+					resdto[9 - k] = new MypageMainDto();
+					rimg[9 - k] = new ImageIcon();
+				}
+			
 		}
-
 		JLabel MyPage_label = new JLabel("MyPage");
 		MyPage_label.setFont(new Font("굴림", Font.BOLD, 35));
-		MyPage_label.setBounds(73, 32, 152, 83);
+		MyPage_label.setBounds(59, 20, 152, 83);
 		add(MyPage_label);
 
 		JLabel reservation_now_label = new JLabel("\uC608\uC57D\uD604\uD669");
 		reservation_now_label.setFont(new Font("굴림", Font.BOLD, 25));
-		reservation_now_label.setBounds(73, 125, 130, 39);
+		reservation_now_label.setBounds(59, 113, 130, 39);
 		add(reservation_now_label);
+		
 
+		JLabel register_now_label = new JLabel("\uB4F1\uB85D \uD604\uD669");
+		register_now_label.setFont(new Font("굴림", Font.BOLD, 25));
+		register_now_label.setBounds(59, 340, 130, 39);
+		add(register_now_label);
+		System.out.println(slist.size());
+		System.out.println(resdto[0].getHname());
+		if(slist.size() != 0) {	
+			
+			System.out.println("허허");
 		homepic1 = new JButton(rimg[0]);
 		homepic1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {	
@@ -127,7 +150,7 @@ public class MypageMain extends JPanel {
 				}
 			}
 		});
-		homepic1.setBounds(71, 174, 132, 113);
+		homepic1.setBounds(57, 162, 132, 113);
 		add(homepic1);
 		
 		homepic2 = new JButton(rimg[1]);
@@ -146,7 +169,7 @@ public class MypageMain extends JPanel {
 				}
 			}
 		});
-		homepic2.setBounds(226, 174, 130, 113);
+		homepic2.setBounds(212, 162, 130, 113);
 		add(homepic2);
 
 		homepic3 = new JButton(rimg[2]);
@@ -165,7 +188,7 @@ public class MypageMain extends JPanel {
 				}
 			}
 		});
-		homepic3.setBounds(390, 174, 130, 113);
+		homepic3.setBounds(376, 162, 130, 113);
 		add(homepic3);
 
 		homepic4 = new JButton(rimg[3]);
@@ -184,45 +207,45 @@ public class MypageMain extends JPanel {
 				}
 			}
 		});
-		homepic4.setBounds(547, 174, 130, 113);
+		homepic4.setBounds(533, 162, 130, 113);
 		add(homepic4);
+		System.out.println(resdto[0].getHname());
 		
 		textArea = new JTextArea(resdto[0].getHname() + "\n$" + resdto[0].getHprice());
 		textArea.setFont(new Font("Monospaced", Font.BOLD, 15));
 		textArea.setEditable(false);
 		textArea.setBackground(Color.WHITE);
-		textArea.setBounds(73, 286, 130, 45);
+		textArea.setBounds(59, 274, 130, 45);
 		add(textArea);
 
 		textArea_1 = new JTextArea(resdto[1].getHname() + "\n$" + resdto[1].getHprice());
 		textArea_1.setFont(new Font("Monospaced", Font.BOLD, 15));
 		textArea_1.setEditable(false);
 		textArea_1.setBackground(Color.WHITE);
-		textArea_1.setBounds(226, 286, 130, 45);
+		textArea_1.setBounds(212, 274, 130, 45);
 		add(textArea_1);
 
 		textArea_2 = new JTextArea(resdto[2].getHname() + "\n$" + resdto[2].getHprice());
 		textArea_2.setFont(new Font("Monospaced", Font.BOLD, 15));
 		textArea_2.setEditable(false);
 		textArea_2.setBackground(Color.WHITE);
-		textArea_2.setBounds(390, 286, 130, 45);
+		textArea_2.setBounds(376, 274, 130, 45);
 		add(textArea_2);
 
 		textArea_3 = new JTextArea(resdto[3].getHname() + "\n$" + resdto[3].getHprice());
 		textArea_3.setFont(new Font("Monospaced", Font.BOLD, 15));
 		textArea_3.setEditable(false);
 		textArea_3.setBackground(Color.WHITE);
-		textArea_3.setBounds(547, 286, 130, 45);
+		textArea_3.setBounds(533, 274, 130, 45);
 		add(textArea_3);
 		
-		JLabel register_now_label = new JLabel("\uB4F1\uB85D \uD604\uD669");
-		register_now_label.setFont(new Font("굴림", Font.BOLD, 25));
-		register_now_label.setBounds(73, 352, 130, 39);
-		add(register_now_label);
 
 		System.out.println("loginmain_frame의 mypage session : " + main_frame.isSession());
 		System.out.println("loginmain_frame의 mypage mno: " + main_frame.getMno());
-
+		
+		}
+		
+	
 		addhome1 = new JButton(aimg[0]);
 		addhome1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -230,11 +253,14 @@ public class MypageMain extends JPanel {
 					main_frame.changePanel("accomodateregist");
 				} else {
 					main_frame.intentp.add("accomdateedit",ae[0]);
-					main_frame.changePanel("accomdateedit");
+					if(regdto[0].getHstatus().equals("등록중")) {
+							addhome1.setEnabled(false);
+							JOptionPane.showMessageDialog(null, "등록중이라 편집이 불가합니다.");
+					}else main_frame.changePanel("accomdateedit");
 				}
 			}
 		});
-		addhome1.setBounds(73, 401, 130, 113);
+		addhome1.setBounds(59, 389, 130, 113);
 		add(addhome1);
 		addhome2 = new JButton(aimg[1]);
 		addhome2.addActionListener(new ActionListener() {
@@ -243,11 +269,14 @@ public class MypageMain extends JPanel {
 					main_frame.changePanel("accomodateregist");
 				} else {
 					main_frame.intentp.add("accomdateedit",ae[1]);
-					main_frame.changePanel("accomdateedit");
+					if(regdto[1].getHstatus().equals("등록중")) {
+						addhome2.setEnabled(false);
+						JOptionPane.showMessageDialog(null, "등록중이라 편집이 불가합니다.");
+					}else main_frame.changePanel("accomdateedit");
 				}
 			}
 		});
-		addhome2.setBounds(228, 401, 130, 113);
+		addhome2.setBounds(214, 389, 130, 113);
 		add(addhome2);
 		
 		addhome3 = new JButton(aimg[2]);
@@ -257,11 +286,14 @@ public class MypageMain extends JPanel {
 					main_frame.changePanel("accomodateregist");
 				} else {
 					main_frame.intentp.add("accomdateedit",ae[2]);
-					main_frame.changePanel("accomdateedit");
+					if(regdto[2].getHstatus().equals("등록중")) {
+						addhome3.setEnabled(false);
+						JOptionPane.showMessageDialog(null, "등록중이라 편집이 불가합니다.");
+					}else main_frame.changePanel("accomdateedit");
 				}
 			}
 		});
-		addhome3.setBounds(390, 401, 130, 113);
+		addhome3.setBounds(376, 389, 130, 113);
 		add(addhome3);
 		
 		addhome4 = new JButton(aimg[3]);
@@ -271,39 +303,43 @@ public class MypageMain extends JPanel {
 					main_frame.changePanel("accomodateregist");
 				} else {
 					main_frame.intentp.add("accomdateedit",ae[3]);
-					main_frame.changePanel("accomdateedit");
+					if(regdto[3].getHstatus().equals("등록중")) {
+						addhome4.setEnabled(false);
+						JOptionPane.showMessageDialog(null, "등록중이라 편집이 불가합니다.");
+					}else main_frame.changePanel("accomdateedit");
 				}
 			}
 		});
-		addhome4.setBounds(547, 401, 130, 113);
+		addhome4.setBounds(533, 389, 130, 113);
 		add(addhome4);
 
 		
 
-		JTextArea addhomepic1_textArea = new JTextArea(regdto[0].getHname() + "\n$" + regdto[0].getHprice());
-		addhomepic1_textArea.setFont(new Font("Monospaced", Font.BOLD, 15));
+		JTextArea addhomepic1_textArea = new JTextArea(regdto[0].getHname()+ "("+regdto[0].getHstatus() + ")" + "\n$" + regdto[0].getHprice());
+		addhomepic1_textArea.setFont(new Font("Monospaced", Font.BOLD, 13));
 		addhomepic1_textArea.setBackground(Color.WHITE);
-		addhomepic1_textArea.setBounds(73, 517, 130, 32);
+		addhomepic1_textArea.setBounds(59, 505, 130, 40);
 		add(addhomepic1_textArea);
 
-		JTextArea addhomepic2_textArea = new JTextArea(regdto[1].getHname() + "\n$" + regdto[1].getHprice());
-		addhomepic2_textArea.setFont(new Font("Monospaced", Font.BOLD, 15));
+		JTextArea addhomepic2_textArea = new JTextArea(regdto[1].getHname()+ "("+regdto[1].getHstatus() + ")"+ "\n$" + regdto[1].getHprice());
+		addhomepic2_textArea.setFont(new Font("Monospaced", Font.BOLD, 13));
 		addhomepic2_textArea.setBackground(Color.WHITE);
-		addhomepic2_textArea.setBounds(226, 517, 130, 32);
+		addhomepic2_textArea.setBounds(212, 505, 130, 40);
 		add(addhomepic2_textArea);
 
-		JTextArea addhomepic3_textArea = new JTextArea(regdto[2].getHname() + "\n$" + regdto[2].getHprice());
-		addhomepic3_textArea.setFont(new Font("Monospaced", Font.BOLD, 15));
+		JTextArea addhomepic3_textArea = new JTextArea(regdto[2].getHname()+ "("+regdto[2].getHstatus() + ")"+ "\n$" + regdto[2].getHprice());
+		addhomepic3_textArea.setFont(new Font("Monospaced", Font.BOLD, 13));
 		addhomepic3_textArea.setBackground(Color.WHITE);
-		addhomepic3_textArea.setBounds(390, 517, 130, 32);
+		addhomepic3_textArea.setBounds(376, 505, 130, 40);
 		add(addhomepic3_textArea);
 
-		JTextArea addhomepic4_textArea = new JTextArea(regdto[3].getHname() + "\n$" + regdto[3].getHprice());
-		addhomepic4_textArea.setFont(new Font("Monospaced", Font.BOLD, 15));
+		JTextArea addhomepic4_textArea = new JTextArea(regdto[3].getHname()+ "("+regdto[3].getHstatus() + ")"+ "\n$" + regdto[3].getHprice());
+		addhomepic4_textArea.setFont(new Font("Monospaced", Font.BOLD, 13));
 		addhomepic4_textArea.setBackground(Color.WHITE);
-		addhomepic4_textArea.setBounds(547, 517, 130, 32);
+		addhomepic4_textArea.setBounds(533, 505, 130, 40);
 		add(addhomepic4_textArea);
-
+		
+		
 		registerhome_mng = new JButton("\uB4F1\uB85D\uB41C \uC9D1 \uC608\uC57D \uAD00\uB9AC");
 		registerhome_mng.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -313,7 +349,7 @@ public class MypageMain extends JPanel {
 		});
 		registerhome_mng.setBackground(new Color(35, 86, 149));
 		registerhome_mng.setForeground(new Color(255, 255, 255));
-		registerhome_mng.setBounds(194, 356, 184, 39);
+		registerhome_mng.setBounds(180, 344, 184, 39);
 		add(registerhome_mng);
 
 		btn_profile_edit = new JButton("\uD504\uB85C\uD544 \uC218\uC815");
@@ -324,7 +360,7 @@ public class MypageMain extends JPanel {
 		});
 		btn_profile_edit.setForeground(Color.WHITE);
 		btn_profile_edit.setBackground(new Color(35, 86, 149));
-		btn_profile_edit.setBounds(237, 62, 141, 39);
+		btn_profile_edit.setBounds(223, 50, 141, 39);
 		add(btn_profile_edit);
 
 	}

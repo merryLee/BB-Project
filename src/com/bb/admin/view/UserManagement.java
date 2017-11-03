@@ -17,6 +17,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import com.bb.admin.controller.UserCTRL;
+import javax.swing.UIManager;
 
 public class UserManagement extends JPanel {
 	
@@ -33,13 +34,14 @@ public class UserManagement extends JPanel {
 	
 	public JButton btnSearch;
 	public JButton btnBlock;
+	public JButton btnUnBlock;
 
 	/**
 	 * Create the panel.
 	 */
 	public UserManagement() {
 		setBorder(new EmptyBorder(0, 0, 0, 0));
-//		setBackground(SystemColor.desktop);
+		setBackground(UIManager.getColor("Panel.background"));
 		setBounds(new Rectangle(0, 0, 753, 553));
 		setLayout(null);
 		
@@ -121,10 +123,16 @@ public class UserManagement extends JPanel {
 		scrollPane.setBounds(15, 132, 702, 322);
 		add(scrollPane);
 		
+		btnUnBlock = new JButton("\uB4F1\uB85D \uCDE8\uC18C");
+		btnUnBlock.addActionListener(userCTRL);
+		btnUnBlock.setBounds(524, 461, 97, 39);
+		add(btnUnBlock);
+		
 		btnBlock = new JButton("\uD68C\uC6D0 \uCC28\uB2E8");
 		btnBlock.addActionListener(userCTRL);
 		btnBlock.setBounds(622, 461, 97, 39);
 		add(btnBlock);
+		
 
 	}
 

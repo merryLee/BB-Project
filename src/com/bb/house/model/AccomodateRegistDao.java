@@ -19,7 +19,7 @@ public class AccomodateRegistDao {
 		try {
 			conn = DBConnection.makeConnection();
 			System.out.println("연결성공");
-			String sql = "INSERT INTO HOUSE_MNG VALUES (HOUSE_SEQ.NEXTVAL, '"+ housedto.getHname() + "','"+housedto.getHloc() + "','"+ housedto.getHdetail() + "','"+housedto.getHprice() + "','" + housedto.getHmax()+"','"+housedto.getConvcode()+"','" + housedto.getHintro() + "','"+housedto.getHhost()+"','"+ housedto.getHphone() + "','"+housedto.getHstatus()+"')";
+			String sql = "INSERT INTO HOUSE_MNG VALUES (HOUSE_SEQ.NEXTVAL, '"+ housedto.getHname() + "','"+housedto.getHloc() + "','"+ housedto.getHdetail() + "','"+housedto.getHprice() + "','" + housedto.getHmax()+"','"+housedto.getConvcode()+"','" + housedto.getHintro() + "','"+housedto.getHhost()+"','"+ housedto.getHphone() + "','"+housedto.getHstatus()+"', SYSDATE)";
 			stmt = conn.createStatement();	
 			cnt = stmt.executeUpdate(sql);
 

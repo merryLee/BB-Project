@@ -88,7 +88,7 @@ public class AccomodateEdit extends JPanel {
 		label.setBackground(Color.WHITE);
 		label.setBounds(137, 87, 57, 15);
 		panel_mng.add(label);
-		
+		System.out.println("²¥²§²§²§²§");
 		if(mypageMain.main_frame.isSession()) {
 			AccomodateEditDao dao = new AccomodateEditDao();
 			mno = mypageMain.main_frame.getMno();

@@ -248,6 +248,7 @@ public class HouseInfo extends JPanel {
 		/////////////////////////////////////////////// review/////////////////////////////////////////
 		List<ReviewDto> list = hid.reviewList(houseDto.getHno());// create score , reivew
 		int len = list.size();
+
 		if (len != 0) {
 			int total_num = 0, clean_num = 0, loc_num = 0, comm_num = 0;
 
@@ -345,8 +346,10 @@ public class HouseInfo extends JPanel {
 			review_num.setBounds(135, 685, 75, 23);
 			review_num.setFont(new Font("굴림", Font.BOLD, 20));
 			panel.add(review_num);
-		} else {
-
+		}
+		else
+		{
+			
 			JScrollPane scrollPane_1 = new JScrollPane();
 			scrollPane_1.setBounds(85, 820, 626, 111);
 			panel.add(scrollPane_1);
@@ -354,24 +357,18 @@ public class HouseInfo extends JPanel {
 			JPanel review_panel_mng = new JPanel();
 			scrollPane_1.setViewportView(review_panel_mng);
 			
-
 			JPanel review_panel = new JPanel();
 			review_panel.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(192, 192, 192),
 					new Color(192, 192, 192), new Color(192, 192, 192), new Color(192, 192, 192)));
 			review_panel.setLayout(null);
 			review_panel_mng.add(review_panel);
 			
-			JLabel review_date = new JLabel("후기가 없습니다.");
-			review_date.setBounds(42, 40, 119, 15);
-			review_panel.add(review_date);
-			
-			
 			review_num = new JLabel(0 + "개");
 			review_num.setBounds(135, 685, 75, 23);
 			review_num.setFont(new Font("굴림", Font.BOLD, 20));
 			panel.add(review_num);
 		}
-
+			
 		bin.addMouseListener(hil);
 		binout.addMouseListener(hil);
 		info_btn_resev.addActionListener(hil);

@@ -89,7 +89,7 @@ public class Main_frame extends JFrame {
 		this.mno = mno;
 		this.top.updateHeader();
 		if (mno != 19910327) {
-			 mypagemain = new MypageMain(this);
+			mypagemain = new MypageMain(this);
 			intentp.add("mypagemain", mypagemain);
 			intentp.add("profile", new Profile(this));
 			intentp.add("accomodateregist", new AccomodateRegist(this));

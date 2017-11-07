@@ -6,6 +6,7 @@ import java.util.Enumeration;
 
 import javax.swing.AbstractButton;
 
+import com.bb.mypage.view.MypageMain;
 import com.bb.review.model.ReviewDao;
 import com.bb.review.model.ReviewDto;
 import com.bb.review.view.Review;
@@ -61,9 +62,9 @@ public class ReviewLogic implements ActionListener {
 
 		int cnt = reviewDao.insertReview(reviewDto,review.mypagemaindto);
 		if (cnt != 0) {
+			reviewDao.update(review.mypagemaindto);
 			System.out.println("리뷰등록성공");
 			review.main_frame.changePanel("mypagemain");
-			review.remove(review.submit);
 		} else {
 			System.out.println("리뷰등록실패TT");
 		}

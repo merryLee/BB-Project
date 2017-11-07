@@ -38,5 +38,25 @@ public class ReviewDao {
 		}
 		return cnt;
 	}
+	
+	public void update(MypageMainDto mypagemaindto) {
+		int cnt = 0;
+		Connection conn = null;
+		Statement stmt = null;
+		try {
+			conn = DBConnection.makeConnection();
+			System.out.println("연결 성공!");
 
+			String sql = "";
+			sql += "UPDATE BOOK_MNG \n";
+			sql += "SET BSTATUS = '2' ";
+			sql += "WHERE BNO = " + mypagemaindto.getBno();		
+			stmt = conn.createStatement();
+			cnt = stmt.executeUpdate(sql);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBClose.close(stmt, conn);
+		}
+	}
 }

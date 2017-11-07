@@ -25,9 +25,9 @@ public class MypageMainDao {
 		try {
 			conn = DBConnection.makeConnection();
 			String sql = "";
-			sql += "Select m.hno, i.thumb1, m.hname, (((b.bout-b.bin)*m.hprice)*b.bperson), b.bin, b.bout, m.hloc, m.hphone, b.bno, b.bperson, b.breq \n";
+			sql += "Select m.hno, i.thumb1, m.hname, (((b.bout-b.bin)*m.hprice)*b.bperson), b.bin, b.bout, m.hloc, m.hphone, b.bno, b.bperson, b.breq, b.bstatus \n";
 			sql += "from (house_mng) m , (house_img) i , (book_mng) b \n";
-			sql += "where m.hno = i.hno AND m.hno = b.hno AND b.bguest = "+ mno +" AND b.bstatus = "+ 1;
+			sql += "where m.hno = i.hno AND m.hno = b.hno AND b.bguest = "+ mno +" AND (b.bstatus = 1 OR b.bstatus = 2)";
 			stmt = conn.createStatement();
 			rs = stmt.executeQuery(sql);
 					
@@ -44,8 +44,7 @@ public class MypageMainDao {
 				mypagemaindto.setBno(rs.getInt(9));
 				mypagemaindto.setBperson(rs.getInt(10));
 				mypagemaindto.setBreq(rs.getString(11));
-				System.out.println("hname : " + rs.getString(3));
-				System.out.println("path : " + rs.getString(2));
+				mypagemaindto.setBstatus(rs.getString(12));
 				list.add(mypagemaindto);			
 			}
 		} catch (SQLException e) {

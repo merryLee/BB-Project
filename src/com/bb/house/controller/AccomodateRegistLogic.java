@@ -69,7 +69,6 @@ public class AccomodateRegistLogic extends MouseAdapter implements ActionListene
 
 			////////////////////////////////////////////////////////////////////µî·Ï
 			 int cnt = ard.register(housedto);
-			 System.out.println("cnt : " + cnt);
 			 
 			 if(cnt != 0) {
 				 System.out.println("insert sucess");
@@ -86,13 +85,12 @@ public class AccomodateRegistLogic extends MouseAdapter implements ActionListene
 			housedto.setHpath1(RegiFileBtn(ar.regi_photo_path1));
 			ImageIcon img = new ImageIcon(housedto.getHpath1());
 			ar.regi_picture.setIcon(img);
-			System.out.println(housedto.getHpath1());
 		} else if (ob == ar.regi_file_btn2) {
 			housedto.setHpath2(RegiFileBtn(ar.regi_photo_path2));
-			System.out.println(housedto.getHpath2());
+			
 		} else if (ob == ar.regi_file_btn3) {
 			housedto.setHpath3(RegiFileBtn(ar.regi_photo_path3));
-			System.out.println(housedto.getHpath3());
+			
 		}
 
 	}

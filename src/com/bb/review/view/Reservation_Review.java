@@ -20,6 +20,7 @@ import javax.swing.JTextArea;
 import javax.swing.UIManager;
 
 public class Reservation_Review extends JPanel {
+	public JButton button;
 
    /**
     * Create the panel.
@@ -40,14 +41,17 @@ public class Reservation_Review extends JPanel {
       label_3.setBounds(346, 296, 156, 35);
       add(label_3);
       
-      JButton button = new JButton("\uD6C4\uAE30 \uBC0F \uD3C9\uC810");
+      button = new JButton("\uD6C4\uAE30 \uBC0F \uD3C9\uC810");
       button.setBackground(new Color(35, 86, 149));
       button.setForeground(Color.WHITE);
       button.addActionListener(new ActionListener() {
          public void actionPerformed(ActionEvent e) {
+        	 if(resdto.getBstatus().equals("2")) {
+        		 remove(button);
+        	 }
         	 mypageMain.main_frame.intentp.add("review",new Review(mypageMain.main_frame,resdto));
-        	 mypageMain.main_frame.changePanel("review");
-         }
+        	 mypageMain.main_frame.changePanel("review");        	
+        }
       });
       button.setBounds(346, 456, 331, 46);
       add(button);

@@ -16,6 +16,7 @@ import javax.swing.border.EmptyBorder;
 
 import com.bb.common.controller.FrameClose;
 import com.bb.home.controller.AddressLogic;
+import java.awt.Color;
 
 public class Address extends JFrame {
 
@@ -24,7 +25,7 @@ public class Address extends JFrame {
 	JPanel pN = new JPanel();
 	JPanel pC = new JPanel();
 
-	private JLabel searchLbl = new JLabel("도로명 주소를 입력해주세요. (ex 제주, 서귀포시, 삼작로292번길)");
+	private JLabel searchLbl = new JLabel("\uB3C4\uB85C\uBA85 \uC8FC\uC18C\uB97C \uC785\uB825\uD574\uC8FC\uC138\uC694.");
 	public JTextField searchTf = new JTextField();
 	public JButton searchBtn = new JButton("검색");
 
@@ -40,19 +41,24 @@ public class Address extends JFrame {
 		setTitle("주소찾기");
 
 		contentPane = new JPanel();
+		contentPane.setBackground(Color.WHITE);
 		contentPane.setBorder(new EmptyBorder(20, 20, 20, 20));
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 10));
 
 		Font f = new Font("굴림", Font.PLAIN, 14);
+		pN.setBackground(Color.WHITE);
 
 		pN.setLayout(new BorderLayout(10, 5));
+		searchLbl.setBackground(Color.WHITE);
 
 		searchLbl.setBounds(0, 0, 57, 15);
 		searchTf.setBounds(0, 0, 116, 21);
 		searchTf.setColumns(10);
 		searchLbl.setFont(f);
 		searchTf.setFont(f);
+		searchBtn.setForeground(Color.WHITE);
+		searchBtn.setBackground(new Color(35, 86, 149));
 		searchBtn.setFont(f);
 
 		pN.add(searchLbl, "North");
@@ -68,6 +74,7 @@ public class Address extends JFrame {
 
 		JScrollPane scrollPane = new JScrollPane(list);
 		scrollPane.setPreferredSize(new Dimension(395, 158));
+		pC.setBackground(Color.WHITE);
 		pC.add(scrollPane);
 
 		contentPane.add(pC, BorderLayout.CENTER);

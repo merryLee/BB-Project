@@ -88,12 +88,10 @@ public class AccomodateEdit extends JPanel {
 		label.setBackground(Color.WHITE);
 		label.setBounds(137, 87, 57, 15);
 		panel_mng.add(label);
-		System.out.println("≤•≤ß≤ß≤ß≤ß");
 		if(mypageMain.main_frame.isSession()) {
 			AccomodateEditDao dao = new AccomodateEditDao();
 			mno = mypageMain.main_frame.getMno();
 			dto = dao.accomodateValue(mno, hno);
-			System.out.println("hno :" + hno);
 		}
 		hname = new JTextField(dto.getHname());
 		hname.setColumns(10);
@@ -130,8 +128,6 @@ public class AccomodateEdit extends JPanel {
 		JLabel label_3 = new JLabel("\uC0C1\uC138\uC8FC\uC18C");
 		label_3.setBounds(395, 142, 57, 15);
 		panel_mng.add(label_3);
-		
-		System.out.println("∏Õ≤«¿Ã : " + dto.getHprice());
 		hprice = new JTextField(dto.getHprice()+"");
 		
 		hprice.setColumns(10);
@@ -220,7 +216,6 @@ public class AccomodateEdit extends JPanel {
 		panel.add(c12);
 		
 		conv = dto.getConvcode();
-		System.out.println("conv : "+ conv);
 		if (conv.substring(0, 1).equals("1")) {
 			c1.setSelected(true);
 		}

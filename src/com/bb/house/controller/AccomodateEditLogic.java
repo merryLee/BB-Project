@@ -36,7 +36,6 @@ public class AccomodateEditLogic {
 		checkBox(accomodateedit.c10);
 		checkBox(accomodateedit.c11);
 		checkBox(accomodateedit.c12);
-		System.out.println("conv :" + conv);
 		dto.setConvcode(conv);
 		dto.setHpath1(accomodateedit.hpath1.getText());
 		dto.setHpath2(accomodateedit.hpath2.getText());

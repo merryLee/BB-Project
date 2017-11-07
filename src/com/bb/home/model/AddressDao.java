@@ -23,9 +23,11 @@ public class AddressDao {
 			conn = DBConnection.makeConnection();
 			System.out.println("연결성공!");
 			String sql = "";
-			sql += "SELECT DISTINCT '('||pno||') '||si||' '||gu||' '||street AS \"result\" \n";
+			sql += "SELECT DISTINCT A.* \n";
+			sql += "FROM (SELECT pno, '('||pno||') '||si||' '||gu||' '||street AS \"result\" \n";
 			sql += "FROM add_val \n";
-			sql += "WHERE street LIKE '%" + keyword +"%' OR gu LIKE '%" + keyword + "%' OR si LIKE '%" + keyword + "%'";
+			sql += "WHERE street LIKE '%" + keyword +"%' OR gu LIKE '%" + keyword + "%' OR si LIKE '%" + keyword + "%') A \n";
+			sql += "ORDER BY A.pno";
 			stmt = conn.createStatement();
 			rs = stmt.executeQuery(sql);
 			while (rs.next()) {

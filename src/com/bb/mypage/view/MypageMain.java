@@ -81,8 +81,6 @@ public class MypageMain extends JPanel {
 					ae[i] = new AccomodateEdit(this, regdto[i].getHno());
 					aimg[i] = new ImageIcon(regdto[i].getPath());					
 				}
-				System.out.println("len : " + len);
-				System.out.println("i : " + i);
 				if(len == 1) {
 					i = 1;
 				}
@@ -92,21 +90,15 @@ public class MypageMain extends JPanel {
 				}
 				len = slist.size();
 				i = 0;
-				System.out.println("len : " + len);
-				System.out.println("i : " + i);
 				for (i = 0; i < len; i++) {					
 					resdto[i] = slist.get(i);
 					rc[i] = new Reservation_Confirm(this, resdto[i]);
 					rv[i] = new Reservation_Review(this, resdto[i]);
 					rimg[i] = new ImageIcon(resdto[i].getPath());
 				}
-				System.out.println("len : " + len);
-				System.out.println("i : " + i);
 				if(len == 1) {
 					i = 1;
 				}
-				System.out.println("len : " + len);
-				System.out.println("i : " + i);
 				for (int k = 0; k < 10 - i; k++) {
 					resdto[9 - k] = new MypageMainDto();
 					rimg[9 - k] = new ImageIcon();
@@ -128,8 +120,6 @@ public class MypageMain extends JPanel {
 		register_now_label.setFont(new Font("굴림", Font.BOLD, 25));
 		register_now_label.setBounds(59, 340, 130, 39);
 		add(register_now_label);
-		System.out.println(slist.size());
-		System.out.println(resdto[0].getHname());
 		if(slist.size() != 0) {	
 			
 			System.out.println("허허");
@@ -137,14 +127,16 @@ public class MypageMain extends JPanel {
 		homepic1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {	
 				delete = resdto[0].getHno();
-
-				System.out.println(resdto[0].getBin()+ "VS" + time.getTime());
 				if(delete != 0 && resdto[0].getBin().after(time.getTime())) {
 				main_frame.intentp.add("reservation_confirm", rc[0]);
 				main_frame.changePanel("reservation_confirm");
 				}else if(delete != 0 && resdto[0].getBin().before(time.getTime())) {
+					if(resdto[0].getBstatus().equals("2")) {
+						rv[0].button.setVisible(false);
+					}
 					main_frame.intentp.add("reservation_review", rv[0]);
 					main_frame.changePanel("reservation_review");
+					
 				}else {
 					JOptionPane.showMessageDialog(null, "예약이 없습니다!");
 				}
@@ -238,11 +230,7 @@ public class MypageMain extends JPanel {
 		textArea_3.setBackground(Color.WHITE);
 		textArea_3.setBounds(533, 274, 130, 45);
 		add(textArea_3);
-		
-
-		System.out.println("loginmain_frame의 mypage session : " + main_frame.isSession());
-		System.out.println("loginmain_frame의 mypage mno: " + main_frame.getMno());
-		
+				
 		}
 		
 	

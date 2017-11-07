@@ -116,17 +116,16 @@ public class Home extends JPanel {
 		add(labelR);
 
 		JPanel homePanel = new JPanel(new GridLayout(1, 4, 20, 0));
+		homePanel.setBackground(Color.WHITE);
 		homePanel.setBounds(22, 380, 711, 154);
 		
 		hList = homeDao.selectTop(); // top4 리스트받아옴
-		System.out.println(hList.get(0).getHpath1());
 		hBtnList = new ArrayList<JButton>();
 		int size = hList.size();
 
 		JButton hBtn;
 		for (int i = 0; i < size; i++) { // 이미지버튼 생성 및 리스트에 삽입.
 			hBtn = new JButton("hBtn"+i, new ImageIcon(hList.get(i).getHpath1()));
-			System.out.println(hList.get(i).getHpath1());
 			hBtnList.add(hBtn);
 			homePanel.add(hBtn);
 		}

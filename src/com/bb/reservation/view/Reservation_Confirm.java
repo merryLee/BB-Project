@@ -57,7 +57,6 @@ public class Reservation_Confirm extends JPanel {
 				if (mypagemain.session) {
 					mno = mypagemain.mno;
 				}
-				System.out.println("들어왔다");
 				if (mypagemain.delete == mypagemain.resdto[0].getHno()) {
 					dao.cancelBook(mno, mypagemain.resdto[0].getHno());
 					mypagemain.remove(mypagemain);
@@ -77,6 +76,7 @@ public class Reservation_Confirm extends JPanel {
 		      		mypagemain.main_frame.intentp.add("mypagemain",myPageMain);
 		      		mypagemain.main_frame.changePanel("mypagemain");
 				} else if (mypagemain.delete == mypagemain.resdto[3].getHno()) {
+					dao.cancelBook(mno, mypagemain.resdto[3].getHno());
 					mypagemain.remove(mypagemain);
 					MypageMain myPageMain = new MypageMain(mypagemain.main_frame);
 		      		mypagemain.main_frame.intentp.add("mypagemain",myPageMain);

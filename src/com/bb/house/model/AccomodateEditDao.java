@@ -40,7 +40,6 @@ public class AccomodateEditDao {
 				housedto.setHprice(rs.getInt("HPRICE"));
 				housedto.setHmax(rs.getInt("HMAX"));
 				housedto.setConvcode(rs.getString("CONVCODE"));
-				System.out.println(rs.getString("CONVCODE"));
 				housedto.setHintro(rs.getString("HINTRO"));
 				housedto.setHphone(rs.getString("HPHONE"));
 				housedto.setHpath1(rs.getString("THUMB1"));
@@ -81,7 +80,6 @@ public class AccomodateEditDao {
 			sql += "THUMB2 = '" + housedto.getHpath2() + "', ";
 			sql += "THUMB3 = '" + housedto.getHpath3() + "' ";
 			sql += " WHERE HNO = "+ housedto.getHno() ;
-			System.out.println(sql);
 			cnt1 = stmt.executeUpdate(sql);
 			if(cnt != 0 && cnt1 !=0) {
 				System.out.println("업데이트!완료!");

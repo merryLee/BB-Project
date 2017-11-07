@@ -27,16 +27,19 @@ public class MainHeader extends JPanel implements ActionListener {
 
       ImageIcon symw = new ImageIcon(".\\img\\symbol_w_mini.jpg");
       btnhome = new JButton(symw);
+      btnhome.setBorderPainted(false);
       btnhome.setBounds(0, 0, 51, 41);
       add(btnhome);
 
       btn1 = new JButton("회원가입");
+      btn1.setBorderPainted(false);
       btn1.setBackground(new Color(35, 86, 149));
       btn1.setForeground(new Color(255, 255, 255));
-      btn1.setBounds(538, 15, 96, 14);
+      btn1.setBounds(548, 15, 96, 14);
       add(btn1);
 
       btn2 = new JButton("로그인");
+      btn2.setBorderPainted(false);
       btn2.setBackground(new Color(35, 86, 149));
       btn2.setForeground(new Color(255, 255, 255));
       btn2.setBounds(640, 15, 96, 14);

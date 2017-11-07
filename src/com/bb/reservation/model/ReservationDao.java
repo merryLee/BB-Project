@@ -30,7 +30,6 @@ public class ReservationDao {
 			sql += ",'" + reservationdto.getBREQ() + "'";
 			sql += ",SYSDATE,'1')";
 			stmt = conn.createStatement();
-			System.out.println(sql);
 			cnt = stmt.executeUpdate(sql);
 			if(cnt != 0) {
 				System.out.println("book 업데이트 완료");

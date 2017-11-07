@@ -20,7 +20,14 @@ public class MypageMainDto {
 	private String hloc;
 	private String breq;
 	private String hstatus = "¹Ìµî·Ï";
+	private String bstatus;
 
+	public String getBstatus() {
+		return bstatus;
+	}
+	public void setBstatus(String bstatus) {
+		this.bstatus = bstatus;
+	}
 	public String getHstatus() {
 		return hstatus;
 	}

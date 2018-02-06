@@ -46,6 +46,7 @@ public class Home extends JPanel {
 		setLayout(null);
 
 		mainImg = new ImageIcon(".\\img\\blackBB.jpg");
+//		mainImg = new ImageIcon("/img/blackBB.jpg");
 		JPanel panel = new JPanel() {
 			public void paintComponent(Graphics g) {
 				g.drawImage(mainImg.getImage(), 0, 0, null);

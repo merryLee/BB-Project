@@ -51,7 +51,6 @@ public class Review extends JPanel {
 		this.mypagemaindto = mypagemaindto;
 		this.main_frame = main_frame;
 		setBounds(new Rectangle(0, 0, 775, 559));
-		setBackground(Color.WHITE);
 		setLayout(null);
 
 		JLabel title = new JLabel("평점 및 후기 작성");
@@ -86,6 +85,7 @@ public class Review extends JPanel {
 
 //		rdbtnNewRadioButton.setSelected(true);
 		List<JRadioButton> rbList = new ArrayList<JRadioButton>();
+	
 		rbList.add(rb1A);
 		rbList.add(rb1B);
 		rbList.add(rb1C);
@@ -143,8 +143,6 @@ public class Review extends JPanel {
 		rbg4.add(rb4E);
 		
 			
-		
-		
 		grade.add(gradeLabel, "West");
 		grade.add(gradeTable, "Center");
 		add(grade);

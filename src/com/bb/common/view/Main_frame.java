@@ -56,7 +56,7 @@ public class Main_frame extends JFrame {
 	 */
 	public Main_frame() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 775, 650);
+		setBounds(100, 100, 769, 634);
 		setBackground(Color.WHITE);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
